@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pronostics 360 – Grands championnats</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#eef2f6;--card:#fff;--tx:#14213d;--mu:#5d6b82;--ln:#d5dce6;--h:#0e7c66;--d:#c79a1b;--a:#3b5bdb;--in:#f5f7fa;--wa:#8a5a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1626;--card:#16223a;--tx:#e8eef8;--mu:#93a3bd;--ln:#2a3a58;--h:#2fc4a2;--d:#e3b83c;--a:#7b95ff;--in:#0e1626;--wa:#e3b83c}}
+:root[data-theme="dark"]{--bg:#0e1626;--card:#16223a;--tx:#e8eef8;--mu:#93a3bd;--ln:#2a3a58;--h:#2fc4a2;--d:#e3b83c;--a:#7b95ff;--in:#0e1626;--wa:#e3b83c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:16px 14px 40px}
+h1{font-size:26px;line-height:1.1;margin:6px 0 4px;letter-spacing:-.02em}
+h3{font-size:18px;margin:2px 0 8px}
+.sub{color:var(--mu);margin:0 0 12px}
+.warn{border-left:4px solid var(--wa);background:var(--card);border-radius:8px;padding:10px 12px;margin:0 0 12px;font-size:14px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.chips button{font:inherit;font-weight:600;border-radius:999px;border:1px solid var(--ln);background:var(--card);color:var(--tx);padding:7px 14px;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+button:focus-visible,summary:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:12px 14px;margin:0 0 12px}
+.meta{font-size:13px;color:var(--mu)}
+.pitch{display:flex;height:42px;border-radius:8px;overflow:hidden;border:2px solid var(--tx);position:relative;margin:8px 0 4px}
+.pitch>div{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;min-width:0}
+.pitch:after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px solid rgba(255,255,255,.55);pointer-events:none}
+.lg{display:flex;justify-content:space-between;font-size:13px;color:var(--mu)}
+.pick{margin:10px 0 8px;font-size:16px}
+.tag{display:inline-block;border-radius:6px;padding:1px 8px;font-size:13px;font-weight:600;background:var(--in);border:1px solid var(--ln);margin-left:4px}
+.ev{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
+.ev div{background:var(--in);border:1px solid var(--ln);border-radius:8px;padding:6px 8px;font-size:13px;color:var(--mu)}
+.ev b{display:block;font-size:16px;color:var(--tx)}
+details{margin:8px 0 0}
+summary{font-weight:650;cursor:pointer}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+th,td{padding:5px 6px;text-align:center;border-top:1px solid var(--ln)}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:600;color:var(--mu);border-top:0}
+td.b{font-weight:700;color:var(--h)}
+tr.f td{color:var(--mu)}
+.note{font-size:14px;margin:8px 0 0}
+.mu{color:var(--mu);font-size:13px}
+:root{--pt:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pt:#06231c}}
+:root[data-theme="dark"]{--pt:#06231c}
+.sb,.ok{border-left:4px solid var(--h)}
+.sb h3{margin:0 0 6px}
+.price{font-size:22px;margin:4px 0}
+.pb{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 6px}
+.card button{font:inherit;font-weight:600;border-radius:10px;border:1px solid var(--ln);background:var(--card);color:var(--tx);padding:10px 14px;cursor:pointer}
+.card button.p{background:var(--h);border-color:var(--h);color:var(--pt);flex:1}
+.card button.p.v{background:var(--a);border-color:var(--a)}
+.cr{display:flex;gap:8px;margin-top:4px}
+.cr input{flex:1;min-width:0;font:inherit;color:var(--tx);background:var(--in);border:1px solid var(--ln);border-radius:8px;padding:8px}
+.card button:focus-visible,.cr input:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+.sb label{display:block;font-size:13px;color:var(--mu);margin-top:8px}
+.sec{font-size:15px;margin:10px 0 6px}
+.tile .bd{background:none;border-radius:0;width:38px;height:38px}
+.tile .bd svg{width:38px;height:38px;display:block}
+.rail{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;padding:2px 2px 8px;margin:0 -2px 6px}
+.tile{flex:0 0 auto;scroll-snap-align:start;width:108px;border:1px solid var(--ln);background:var(--card);color:var(--tx);border-radius:12px;padding:10px;text-align:left;font:inherit;cursor:pointer}
+.tile[aria-pressed="true"]{border-color:var(--h);box-shadow:inset 0 0 0 2px var(--h)}
+.tile[disabled]{opacity:.55;cursor:default}
+.tile .bd{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;color:#fff;margin-bottom:6px}
+.tile b{display:block;font-size:14px;line-height:1.2}
+.tile small{color:var(--mu)}
+.dy{flex:0 0 auto;scroll-snap-align:start;font:inherit;font-weight:600;border-radius:999px;border:1px solid var(--ln);background:var(--card);color:var(--tx);padding:7px 14px;cursor:pointer}
+.dy[aria-pressed="true"]{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.vt{display:flex;justify-content:space-between;align-items:center;margin:4px 0 10px}
+.seg{display:flex;border:1px solid var(--ln);border-radius:10px;overflow:hidden}
+.seg button{font:inherit;font-weight:600;padding:6px 12px;border:0;background:var(--card);color:var(--tx);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--tx);color:var(--bg)}
+#list.h{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}
+#list.h>.card{flex:0 0 88%;scroll-snap-align:center;margin:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 8px;font-size:14px}
+.tb{display:flex;gap:8px}
+.top{justify-content:flex-end;position:relative}
+.av-wrap{position:relative}
+.tp{display:flex;align-items:center;justify-content:flex-end;gap:10px;width:100%}
+.ti{display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:0}
+.tb{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.top .pill{border:1px solid var(--ln);background:var(--card);color:var(--tx);border-radius:999px;padding:6px 11px;font-size:13px;font-weight:600}
+.top .pill.acc{background:var(--h);border-color:var(--h);color:var(--pt)}
+.cr2{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--ln);text-align:center;font-size:13px;color:var(--mu)}
+.cr2 a{color:var(--h);font-weight:600}
+html,body{overflow-x:hidden}
+.band{width:100vw;margin-left:calc(50% - 50vw);padding-left:calc(50vw - 50%);padding-right:calc(50vw - 50%);animation:sw .8s ease both}
+@keyframes sw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.top.band{background:linear-gradient(90deg,#10203f,#2b57a6);margin-top:-16px;margin-bottom:12px;padding-top:12px;padding-bottom:12px}
+.top.band .mu{color:#d6e4ff}
+.top.band .av{border-color:#fff}
+#app>.sec{background:linear-gradient(90deg,#0b5f4e,#12806a);color:#fff;margin-top:14px;margin-bottom:8px;padding-top:9px;padding-bottom:9px;letter-spacing:.02em}
+.card>.sec{background:linear-gradient(90deg,#0b5f4e,#12806a);color:#fff;margin:-12px -14px 10px;padding:9px 14px;border-radius:12px 12px 0 0}
+.mu.warn2{background:linear-gradient(90deg,#7a3b00,#9a5200);color:#fff;font-size:13px;padding-top:12px;padding-bottom:12px;margin-top:16px;margin-bottom:0}
+.cr2.band{background:linear-gradient(90deg,#3d195b,#1b2f6b);color:#fff;border-top:0;margin-top:0;margin-bottom:0;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.cr2.band a{color:#ffd23f}
+@media (prefers-reduced-motion:reduce){.band{animation:none}}
+.top .av{width:46px;height:46px;border-radius:50%;border:2px solid var(--h);background:var(--card);color:var(--tx);font-size:19px;font-weight:800;padding:0;overflow:hidden;display:grid;place-items:center}
+.av img{width:100%;height:100%;object-fit:cover;display:block}
+.top .menu{position:absolute;right:0;top:54px;z-index:5;min-width:230px;background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:8px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.top .menu[hidden]{display:none}
+.mh{padding:6px 8px 8px;border-bottom:1px solid var(--ln);margin-bottom:6px;display:flex;flex-direction:column;gap:2px;word-break:break-all}
+.top .menu button{display:block;width:100%;text-align:left;border:0;background:none;color:var(--tx);padding:10px 8px;border-radius:8px}
+.top .menu button:hover{background:var(--in)}
+.top button{font:inherit;font-weight:600;border-radius:10px;border:1px solid var(--ln);background:var(--card);color:var(--tx);padding:7px 12px;cursor:pointer}
+.top button:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+#auth{max-width:420px;margin:0 auto}
+.au label{display:block;font-size:13px;color:var(--mu);margin:10px 0 2px}
+.au input{width:100%;font:inherit;color:var(--tx);background:var(--in);border:1px solid var(--ln);border-radius:8px;padding:10px}
+.au input:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+.au .seg button{flex:1}
+:root{--st:rgba(14,124,102,.09);--bo:.22;--ln2:rgba(14,124,102,.3);--bi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='47' fill='%23fff' stroke='%23222' stroke-width='4'/%3E%3Cpolygon points='50,30 69,44 62,66 38,66 31,44' fill='%23222'/%3E%3Cpath d='M50 30V6M69 44l24-8M62 66l14 20M38 66L24 86M31 44L7 36' stroke='%23222' stroke-width='3' fill='none'/%3E%3C/svg%3E")}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--st:rgba(47,196,162,.08);--bo:.16;--ln2:rgba(47,196,162,.28)}}
+:root[data-theme="dark"]{--st:rgba(47,196,162,.08);--bo:.16;--ln2:rgba(47,196,162,.28)}
+.bgfx{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:radial-gradient(120% 55% at 50% 0%,var(--st),transparent 70%),repeating-linear-gradient(90deg,var(--st) 0 64px,transparent 64px 128px)}
+.pl{position:absolute;inset:0;width:100%;height:100%;color:var(--ln2)}
+.pl *{fill:none;stroke:currentColor;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1;animation:dr 3.5s ease forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+.ball{position:absolute;top:0;width:var(--s);height:var(--s);opacity:var(--bo);background:var(--bi) center/contain no-repeat;animation:fl linear infinite}
+@keyframes fl{from{transform:translateY(105vh) rotate(0)}to{transform:translateY(-20vh) rotate(360deg)}}
+.hero{position:relative;height:84px;border-radius:12px;overflow:hidden;margin:6px 0 10px;border:1px solid var(--ln);background:repeating-linear-gradient(90deg,#1e9c58 0 36px,#188a4c 36px 72px)}
+.hero:before{content:"";position:absolute;inset:8px;border:2px solid rgba(255,255,255,.55);border-radius:4px}
+.hero:after{content:"";position:absolute;left:50%;top:8px;bottom:8px;border-left:2px solid rgba(255,255,255,.55)}
+.mv{position:absolute;left:0;bottom:10px;width:100%;height:42px;z-index:1;animation:rl 6s ease-in-out infinite alternate}
+@keyframes rl{from{transform:translateX(10px)}to{transform:translateX(calc(100% - 52px))}}
+.bl{width:40px;height:40px;background:var(--bi) center/contain no-repeat;animation:bn .6s ease-out infinite alternate}
+@keyframes bn{from{transform:translateY(0) rotate(0)}to{transform:translateY(-34px) rotate(200deg)}}
+@media (prefers-reduced-motion:reduce){.ball,.mv,.bl{animation:none!important}.pl *{animation:none!important;stroke-dashoffset:0}.ball{display:none}}
+</style></head><body><div class="bgfx" aria-hidden="true"><svg class="pl" viewBox="0 0 800 1200" preserveAspectRatio="xMidYMid slice"><rect x="40" y="40" width="720" height="1120" rx="6" pathLength="1"/><line x1="40" y1="600" x2="760" y2="600" pathLength="1"/><circle cx="400" cy="600" r="110" pathLength="1"/><rect x="220" y="40" width="360" height="170" pathLength="1"/><rect x="220" y="990" width="360" height="170" pathLength="1"/><rect x="320" y="40" width="160" height="60" pathLength="1"/><rect x="320" y="1100" width="160" height="60" pathLength="1"/></svg><i class="ball" style="left:5%;--s:46px;animation-duration:24s;animation-delay:-4s"></i><i class="ball" style="left:22%;--s:30px;animation-duration:19s;animation-delay:-12s"></i><i class="ball" style="left:41%;--s:56px;animation-duration:28s;animation-delay:-18s"></i><i class="ball" style="left:63%;--s:34px;animation-duration:21s;animation-delay:-7s"></i><i class="ball" style="left:80%;--s:50px;animation-duration:26s;animation-delay:-15s"></i><i class="ball" style="left:93%;--s:28px;animation-duration:18s;animation-delay:-1s"></i></div><main>
+<section id="auth" hidden></section><div id="app" hidden><div class="top band" id="top"></div>
+<h1>Pronostics 360</h1>
+<div class="hero" aria-hidden="true"><div class="mv"><div class="bl"></div></div></div>
+<p class="sub">Prochains matchs des grands championnats : comparaison des cotes trouvées et mes pronostics. Heures en GMT (Ouagadougou).</p>
+<div class="warn">Mise à jour le 18 octobre 2026, 22:40 GMT. Les cotes viennent de pages publiques et peuvent dater : vérifie-les chez ton bookmaker avant tout pari. Mes probabilités sont des estimations, pas des certitudes.</div>
+<div id="sub"></div>
+<h2 class="sec band">Championnats</h2><div class="rail" id="lgs"></div><p class="mu">Glisse vers la droite pour voir tous les championnats →</p>
+<h2 class="sec band">Jour</h2><div class="rail" id="days"></div>
+<div class="vt"><span class="mu" id="cnt"></span><div class="seg" id="vw"></div></div>
+<div id="res"></div>
+<div id="list"></div>
+<p class="mu warn2 band">Les probabilités SportRadar viennent d’un fournisseur de données sportives et celles de l’Europa League d’un site de pronostics, pas de bookmakers. Outil d’aide à la décision. Les paris comportent des risques. Réservé aux adultes.</p>
+</div><footer class="cr2 band">Développé par <b>W-edge</b> · <a href="https://wa.me/22678097713" target="_blank" rel="noopener">WhatsApp +226 78097713</a></footer></main>
+<script>
+const CF=['Faible','Moyenne','Élevée'];
+const M=[
+{lg:'Premier League',day:'Dim. 18 oct',t:'13:00',h:'Bournemouth',a:'Sunderland',o:[['OddsPortal',2.15,3.5,3.6],['DraftKings (US)',2.15,null,null]],p:[44,28,28],ou:52,bt:55,sc:'1-1 ou 2-1',cf:0,n:'Les cotes sont presque égales : match très ouvert, sans vrai favori.'},
+{lg:'Premier League',day:'Dim. 18 oct',t:'13:00',h:'Brighton',a:'Crystal Palace',o:[['Daily Sports',1.75,null,null]],p:[51,25,24],ou:56,bt:55,sc:'2-1',cf:1,n:'Brighton a pris 13 points sur 18 et attaque beaucoup à domicile. Palace sort d’une victoire 3-1 contre Nottingham Forest : il peut piéger Brighton.'},
+{lg:'Premier League',day:'Dim. 18 oct',t:'13:00',h:'Leeds',a:'Manchester United',o:[['Daily Sports',2.51,null,null]],p:[39,27,34],ou:55,bt:58,sc:'1-1 ou 2-1',cf:0,n:'Une seule cote trouvée (Leeds à 2,51). United est irrégulier loin de chez lui, mais ses attaquants peuvent décider seuls.'},
+{lg:'Premier League',day:'Dim. 18 oct',t:'15:30',h:'Nottingham Forest',a:'Arsenal',o:[['Oddschecker',6,4.1,1.62],['Betwinner',null,null,1.66]],p:[16,24,60],ou:47,bt:47,sc:'0-2 ou 1-2',cf:1,n:'Arsenal a gagné 4 de ses 5 derniers matchs, Forest en a gagné 1. Bet9ja propose « les deux équipes ne marquent pas » à 1,91, ce qui colle à mon avis (53 % pour ce pari).'},
+{lg:'Premier League',day:'Lun. 19 oct',t:'19:00',h:'Tottenham',a:'Coventry',o:[['OddsPortal',1.48,4.75,7],['Oddschecker',1.5,4.6,6]],p:[62,22,16],ou:56,bt:52,sc:'2-0 ou 2-1',cf:1,n:'Les deux sites donnent Tottenham à environ 1,50. Coventry a pourtant battu Forest 1-0 en septembre : la cote est basse, donc le gain aussi.'},
+{lg:'La Liga',day:'Dim. 18 oct',t:'19:00',h:'Real Madrid',a:'Séville',o:[],p:[58,21,21],ou:62,bt:58,sc:'2-1',cf:1,n:'Les sources divergent : un modèle de buts donne 64 % à Madrid, la moyenne des cotes seulement 51 %. Madrid n’a pas perdu à domicile contre Séville sur les 9 derniers matchs de championnat, et Mbappé a déjà 7 buts.'},
+{lg:'Premier League',day:'Ven. 23 oct',t:'19:00',h:'Ipswich',a:'Nottingham Forest',o:[['OddsPortal (ancienne)',3.1,3.55,2.25]],p:[31,27,42],ou:48,bt:52,sc:'1-1 ou 1-2',cf:0,n:'Match dans 5 jours et cotes anciennes : reviens vérifier avant le week-end.'},
+{lg:'Premier League',day:'Sam. 24 oct',t:'16:30',h:'Chelsea',a:'Tottenham',o:[['OddsPortal (ancienne)',1.8,4,4.1]],p:[50,25,25],ou:57,bt:58,sc:'2-1',cf:0,n:'Derby londonien dans 6 jours et cotes anciennes : à revérifier.'}
+];
+(()=>{
+const PL='Premier League',LL='La Liga',SA='Serie A',BL='Bundesliga',L1='Ligue 1',a1='Dim. 18 oct',a2='Lun. 19 oct',a3='Mer. 21 oct',a4='Ven. 23 oct',a5='Sam. 24 oct',a6='Dim. 25 oct';
+const DONE=M.splice(0,4);
+const ed=(h,o)=>Object.assign(M.find(m=>m.h===h),o);
+ed('Tottenham',{pr:[65,20,15]});ed('Ipswich',{pr:[31,27,42]});ed('Chelsea',{pr:[55,23,22],p:[52,24,24]});
+ed('Real Madrid',{pr:[77,14,9],p:[68,18,14],ou:63,bt:55,sc:'2-0 ou 2-1',n:'Trois avis différents : SportRadar donne 77 % à Madrid, un modèle de buts 64 % et la moyenne des cotes 51 %. J’ai retenu 68 %. Madrid n’a pas perdu à domicile contre Séville sur les 9 derniers matchs de championnat, et Mbappé a déjà 7 buts.'});
+const RS=[[2,0],[5,0],[1,1],[0,1]];
+const hits=DONE.map((m,i)=>{const s=RS[i],o=s[0]>s[1]?0:s[0]===s[1]?1:2,t=m.p.indexOf(Math.max(...m.p));return{m:m,s:s,t:t,ok:t===o}});
+const nok=hits.filter(x=>x.ok).length,rw='display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-top:1px solid var(--ln);font-size:14px';
+document.getElementById('res').innerHTML='<div class="card"><h2 class="sec">Mes pronostics du jour : '+nok+' sur '+hits.length+' corrects</h2>'+hits.map(x=>'<div style="'+rw+'"><span>'+x.m.h+' '+x.s[0]+'–'+x.s[1]+' '+x.m.a+'</span><b>'+['1','X','2'][x.t]+' '+(x.ok?'✓':'✗')+'</b></div>').join('')+'<p class="mu">Très petit échantillon : à ne pas prendre comme une preuve de fiabilité.</p></div>';
+function gr(l,k){const P=[Math.exp(-l)],Q=[Math.exp(-k)];for(let i=1;i<9;i++){P.push(P[i-1]*l/i);Q.push(Q[i-1]*k/i)}let H=0,D=0,A=0,O=0,B=0;const S=[];for(let i=0;i<9;i++)for(let j=0;j<9;j++){const p=P[i]*Q[j];if(i>j)H+=p;else if(i===j)D+=p;else A+=p;if(i+j>2)O+=p;if(i&&j)B+=p;S.push([i+'-'+j,p])}const t=H+D+A;S.sort((x,y)=>y[1]-x[1]);return{p:[H/t,D/t,A/t],O:O/t,B:B/t,S:S}}
+function fit(p){let b=[1.3,1.1,9],st=.1,l0=.3,l1=3.8,k0=.2,k1=3.2;for(let r=0;r<2;r++){for(let l=l0;l<=l1;l+=st)for(let k=k0;k<=k1;k+=st){const g=gr(l,k).p,e=Math.pow(g[0]-p[0]/100,2)+Math.pow(g[1]-p[1]/100,2)+Math.pow(g[2]-p[2]/100,2);if(e<b[2])b=[l,k,e]}l0=Math.max(.1,b[0]-.1);l1=b[0]+.1;k0=Math.max(.1,b[1]-.1);k1=b[1]+.1;st=.02}return b}
+const mk=r=>{const f=fit(r[5]),g=gr(f[0],f[1]),mx=Math.max(...r[5]);return{lg:r[0],day:r[1],t:r[2],h:r[3],a:r[4],o:[],pr:r[5],p:r[5],ou:Math.round(g.O*100),bt:Math.round(g.B*100),sc:g.S[0][0]+' ou '+g.S[1][0],cf:mx>=70?2:mx>=50?1:0,n:'Probabilités reprises de SportRadar. Les buts et les scores sont calculés à partir d’elles.'}};
+const AU=[
+[PL,a5,'11:30','Aston Villa','Manchester City',[21,23,56]],[PL,a5,'14:00','Arsenal','Everton',[70,19,11]],[PL,a5,'14:00','Coventry','Fulham',[33,27,40]],[PL,a6,'14:00','Crystal Palace','Newcastle',[34,26,40]],[PL,a6,'14:00','Hull','Brentford',[22,24,54]],[PL,a6,'14:00','Liverpool','Brighton',[46,25,29]],[PL,a6,'14:00','Manchester United','Bournemouth',[52,24,24]],
+[LL,a2,'19:00','Getafe','Rayo Vallecano',[32,32,36]],[LL,a3,'18:00','Levante','Athletic Bilbao',[28,28,44]],[LL,a4,'19:00','Alavés','Málaga',[52,27,21]],[LL,a5,'12:00','Rayo Vallecano','Elche',[54,25,21]],[LL,a5,'14:15','Racing Santander','Espanyol',[38,26,36]],[LL,a5,'16:30','Valencia','Villarreal',[30,26,44]],[LL,a5,'19:00','Atlético Madrid','Deportivo',[78,14,8]],[LL,a6,'13:00','Athletic Bilbao','Getafe',[59,24,17]],[LL,a6,'15:15','Celta Vigo','Betis',[34,27,39]],
+[SA,a1,'18:45','Juventus','Lazio',[59,24,17]],[SA,a2,'16:30','Monza','Cagliari',[39,30,31]],[SA,a2,'18:45','Parma','Torino',[30,31,39]],[SA,a4,'18:45','Torino','Monza',[45,28,27]],[SA,a5,'13:00','Cagliari','Bologna',[31,30,39]],[SA,a5,'13:00','Como','Sassuolo',[67,18,15]],[SA,a5,'16:00','Napoli','Roma',[32,28,40]],[SA,a5,'18:45','Lazio','Parma',[63,22,15]],[SA,a6,'11:30','Inter','Fiorentina',[70,17,13]],[SA,a6,'14:00','Atalanta','Frosinone',[57,22,21]],
+[BL,a4,'18:30','Stuttgart','Mönchengladbach',[69,16,15]],[BL,a5,'13:30','Leipzig','Elversberg',[70,16,14]],[BL,a5,'13:30','Augsburg','Union Berlin',[51,24,25]],[BL,a5,'13:30','Mainz','Werder Bremen',[57,22,21]],[BL,a5,'13:30','Cologne','Schalke 04',[47,24,29]],[BL,a5,'13:30','Paderborn','Hamburg',[43,25,32]],[BL,a5,'16:30','Dortmund','Eintracht Frankfurt',[65,18,17]],[BL,a6,'14:30','Hoffenheim','Leverkusen',[35,24,41]],[BL,a6,'16:30','Freiburg','Bayern Munich',[15,16,69]],
+[L1,a1,'18:45','Lyon','Nice',[49,25,26]],[L1,a4,'18:45','Brest','Nice',[43,26,31]],[L1,a5,'15:15','Toulouse','Troyes',[59,22,19]],[L1,a5,'18:45','Lens','Paris FC',[42,26,32]],[L1,a6,'14:00','Monaco','Lille',[45,27,28]],[L1,a6,'16:15','Angers','Lorient',[37,29,34]],[L1,a6,'16:15','Auxerre','Le Mans',[45,27,28]],[L1,a6,'16:15','Marseille','Le Havre',[61,21,18]],[L1,a6,'16:15','Rennes','Strasbourg',[55,22,23]],[L1,a6,'19:45','PSG','Lyon',[71,16,13]]];
+AU.forEach(r=>M.push(mk(r)));
+const UC='Ligue des champions',UE='Europa League',b1='Mar. 20 oct',b3='Jeu. 22 oct';
+const r3=p=>{const a=p.map(x=>Math.round(x*100));a[a.indexOf(Math.max(...a))]+=100-a.reduce((s,x)=>s+x,0);return a};
+function fit2(ph,mu){let b=[1.5,9];for(let l=.2;l<=Math.min(4.5,mu-.1);l+=.02){const g=gr(l,mu-l).p,e=Math.abs(g[0]-ph);if(e<b[1])b=[l,e]}return[b[0],mu-b[0]]}
+const mk2=(lg,day,t,h,a,hd,mu)=>{const f=fit2(.95/hd,mu),g=gr(f[0],f[1]);return{lg:lg,day:day,t:t,h:h,a:a,o:[['DraftKings (US)',hd,null,null]],p:r3(g.p),ou:Math.round(g.O*100),bt:Math.round(g.B*100),sc:g.S[0][0]+' ou '+g.S[1][0],cf:0,n:'Seule la cote de la victoire à domicile a été trouvée. Mes probabilités en sont déduites avec le total de buts attendu : confiance faible.'}};
+[[UC,b1,'16:45','Fenerbahçe','Slavia Prague',[58,23,19]],[UC,b1,'16:45','Sabah','Dortmund',[10,14,76]],[UC,b1,'19:00','Roma','Slovan Bratislava',[83,11,6]],[UC,b1,'19:00','Porto','PSV',[58,22,20]],[UC,b1,'19:00','Liverpool','Villarreal',[64,20,16]],[UC,b1,'19:00','Manchester City','AEK Athens',[89,7,4]],[UC,b1,'19:00','PSG','Barcelona',[39,22,39]],[UC,b1,'19:00','Napoli','Bodø/Glimt',[61,21,18]],[UC,b1,'19:00','Stuttgart','Atlético Madrid',[29,25,46]],[UC,a3,'16:45','Como','Manchester United',[42,25,33]]].forEach(r=>M.push(mk(r)));
+M.push(mk2(UC,a3,'19:00','Real Madrid','Leipzig',1.28,3.4),mk2(UC,a3,'19:00','Inter','Shakhtar Donetsk',1.21,3.4),mk2(UC,a3,'19:00','Real Betis','Feyenoord',1.51,3.4),mk2(UC,a3,'19:00','Bayern Munich','Arsenal',2.1,2.9));
+const UL=[[UE,b3,'16:45','Juventus','Rennes',[57,24,19]],[UE,b3,'16:45','OFI Crete','Leverkusen',[13,19,68]],[UE,b3,'16:45','Ferencváros','Torreense',[82,11,7]],[UE,b3,'16:45','Dinamo Zagreb','NEC Nijmegen',[61,21,18]],[UE,b3,'16:45','Lech Poznań','Sunderland',[28,25,47]],[UE,b3,'16:45','Sturm Graz','Marseille',[45,26,29]],[UE,b3,'16:45','Union SG','Hapoel Beer-Sheva',[69,18,13]],[UE,b3,'16:45','Ararat-Armenia','AZ Alkmaar',[15,19,66]],[UE,b3,'19:00','Omonia','Benfica',[30,26,44]],[UE,b3,'19:00','Lillestrøm','Real Sociedad',[28,26,46]],[UE,b3,'19:00','Olympiakos','Sparta Prague',[54,24,22]],[UE,b3,'19:00','Hoffenheim','Lyon',[16,21,63]],[UE,b3,'19:00','Jagiellonia','Anderlecht',[31,27,42]],[UE,b3,'19:00','Celtic','Celta Vigo',[46,26,28]],[UE,b3,'19:00','Celje','Salzburg',[22,23,55]],[UE,b3,'19:00','Bournemouth','Milan',[52,24,24]],[UE,b3,'19:00','Besiktas','Crystal Palace',[43,26,31]],[UE,b3,'19:00','Viktoria Plzeň','Levski Sofia',[37,27,36]]];
+UL.forEach(r=>{const m=mk(r);m.src='Adalbet';m.n='Probabilités reprises du site de pronostics Adalbet. Les buts et les scores sont calculés à partir d’elles.';M.push(m)});
+const SB={'Ararat-Armenia':[5.4,4.2,1.67],'Ferencváros':[1.45,5.6,11],'Dinamo Zagreb':[1.82,3.95,4.6]};
+M.forEach(m=>{if(m.lg===UE&&SB[m.h])m.o=[['SportyTrader (meilleures cotes)'].concat(SB[m.h])]});
+const FIN=[['Real Madrid','Séville',4,1],['Juventus','Lazio',0,3],['Lyon','Nice',2,1],['Stuttgart','Atlético Madrid',1,1],['Como','Manchester United',4,1],['Inter','Shakhtar Donetsk',1,0],['Real Madrid','Leipzig',4,1],['Real Betis','Feyenoord',1,0],['Bayern Munich','Arsenal',2,2]];
+FIN.forEach(f=>{const i=M.findIndex(m=>m.h===f[0]&&m.a===f[1]);if(i>-1){const m=M.splice(i,1)[0],o=f[2]>f[3]?0:f[2]===f[3]?1:2,t=m.p.indexOf(Math.max(...m.p));hits.push({m:m,s:[f[2],f[3]],t:t,ok:t===o})}});
+const n2=hits.filter(x=>x.ok).length;
+document.getElementById('res').innerHTML='<div class="card"><h2 class="sec">Mes pronostics terminés : '+n2+' sur '+hits.length+' corrects</h2>'+hits.map(x=>'<div style="'+rw+'"><span>'+x.m.h+' '+x.s[0]+'–'+x.s[1]+' '+x.m.a+'</span><b>'+['1','X','2'][x.t]+' '+(x.ok?'✓':'✗')+'</b></div>').join('')+'<p class="mu">Petit échantillon : à ne pas prendre comme une preuve de fiabilité.</p></div>';
+const DN={'Dim. 18 oct':18,'Lun. 19 oct':19,'Mar. 20 oct':20,'Mer. 21 oct':21,'Jeu. 22 oct':22,'Ven. 23 oct':23,'Sam. 24 oct':24,'Dim. 25 oct':25};
+M.sort((x,y)=>DN[x.day]-DN[y.day]||x.t.localeCompare(y.t));
+const nowT=Date.now();
+for(let i=M.length-1;i>=0;i--){const hm=M[i].t.split(':'),k=Date.UTC(2026,9,DN[M[i].day],+hm[0],+hm[1]);if(k<nowT-2*3600000)M.splice(i,1)}
+})();
+const f2=x=>x.toFixed(2).replace('.',','),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let cur='Tous';
+function card(m){
+ const p=m.p,top=p.indexOf(Math.max(...p)),low=p.indexOf(Math.min(...p)),dc=[0,1,2].filter(k=>k!==low).map(k=>['1','X','2'][k]).join('');
+ const pickTxt=top===1?'Match nul':(top===0?m.h:m.a)+' gagne';
+ const best=[0,1,2].map(k=>Math.max(0,...m.o.map(r=>r[k+1]||0)));
+ let tb='';
+ if(m.o.length){tb='<div class="tw"><table><tr><th>Source</th><th>1</th><th>X</th><th>2</th></tr>'+m.o.map(r=>'<tr><td>'+esc(r[0])+'</td>'+[1,2,3].map(k=>'<td'+(r[k]&&r[k]===best[k-1]?' class="b"':'')+'>'+(r[k]?f2(r[k]):'–')+'</td>').join('')+'</tr>').join('')+'<tr><td><b>Meilleure cote</b></td>'+best.map(v=>'<td class="b">'+(v?f2(v):'–')+'</td>').join('')+'</tr>'
+  +'<tr class="f"><td>Cote juste (mon avis)</td>'+p.map(v=>'<td>'+f2(100/v)+'</td>').join('')+'</tr></table></div><p class="mu">En vert : la meilleure cote trouvée. Si elle dépasse la cote juste, elle est intéressante.'+(m.pr?' Probabilités '+(m.src||'SportRadar')+' : '+m.pr.map(v=>v+' %').join(' · ')+'.':'')+'</p>';}
+ else tb='<p class="mu">Pas de cotes de bookmakers trouvées pour ce match. Probabilités '+(m.src||'SportRadar')+' : '+(m.pr||m.p).map(v=>v+' %').join(' · ')+'. Ma cote juste : '+p.map((v,k)=>['1','X','2'][k]+' '+f2(100/v)).join(' · ')+'.</p>';
+ return '<article class="card"><div class="meta">'+m.lg+' · '+m.day+' · '+m.t+' GMT</div><h3>'+esc(m.h)+' – '+esc(m.a)+'</h3>'
+ +'<div class="pitch"><div style="width:'+p[0]+'%;background:var(--h)">'+p[0]+'%</div><div style="width:'+p[1]+'%;background:var(--d)">'+p[1]+'%</div><div style="width:'+p[2]+'%;background:var(--a)">'+p[2]+'%</div></div>'
+ +'<div class="lg"><span>Domicile</span><span>Nul</span><span>Extérieur</span></div>'
+ +'<div class="pick">Pronostic : <b>'+esc(pickTxt)+'</b><span class="tag">Confiance '+CF[m.cf].toLowerCase()+'</span></div>'
+ +'<div class="ev"><div>Plus de 2,5 buts<b>'+m.ou+'%</b></div><div>Les deux marquent<b>'+m.bt+'%</b></div><div>Double chance<b>'+dc+' · '+(100-p[low])+'%</b></div><div>Score probable<b>'+m.sc+'</b></div></div>'
+ +'<details><summary>Comparaison des bookmakers</summary>'+tb+'</details><p class="note">'+esc(m.n)+'</p></article>';}
+function draw(){
+ const n=l=>M.filter(m=>m.lg===l).length;
+ $('lgs').innerHTML=LG.map(g=>'<button class="tile" data-l="'+g[0]+'" aria-pressed="'+sel.has(g[0])+'"'+(n(g[0])?'':' disabled')+'><span class="bd">'+EMB[g[1]]+'</span><b>'+g[0]+'</b><small>'+(n(g[0])?n(g[0])+' match'+(n(g[0])>1?'s':''):'Bientôt')+'</small></button>').join('');
+ $('lgs').querySelectorAll('button').forEach(b=>b.onclick=()=>{const l=b.dataset.l;sel.has(l)?sel.delete(l):sel.add(l);draw()});
+ const pool=M.filter(m=>!sel.size||sel.has(m.lg));
+ const ds=['Tous',...new Set(pool.map(m=>m.day))];
+ if(!ds.includes(dj.v))dj.v='Tous';
+ $('days').innerHTML=ds.map(d=>'<button class="dy" aria-pressed="'+(d===dj.v)+'" data-d="'+d+'">'+d+'</button>').join('');
+ $('days').querySelectorAll('button').forEach(b=>b.onclick=()=>{dj.v=b.dataset.d;draw()});
+ const shown=pool.filter(m=>dj.v==='Tous'||m.day===dj.v);
+ $('cnt').textContent=shown.length+' match'+(shown.length>1?'s':'');
+ $('vw').innerHTML=[['v','Liste'],['h','Défiler']].map(x=>'<button aria-pressed="'+(vw.v===x[0])+'" data-v="'+x[0]+'">'+x[1]+'</button>').join('');
+ $('vw').querySelectorAll('button').forEach(b=>b.onclick=()=>{vw.v=b.dataset.v;draw()});
+ const L=$('list');L.className=vw.v==='h'?'h':'';
+ L.innerHTML=shown.length?shown.map(m=>access()?card(m):lock(m)).join(''):'<div class="card"><p class="mu">Aucun match pour cette sélection. Choisis un autre championnat ou un autre jour.</p></div>';}
+/* Réglages : liens de paiement (Orange Money / carte Visa), numéro WhatsApp, codes d’accès */
+const PAY={om:'',card:''},WA='',CODES=['ESSAI30'],FREE=2,DAYS=30,TRIAL=14,subOpen={v:false},mem={};
+const LG=[['Ligue des champions','LC','#1d3a8a'],['Europa League','EL','#e8590c'],['Premier League','PL','#5b2a86'],['La Liga','LL','#c2410c'],['Serie A','SA','#1d4ed8'],['Bundesliga','BL','#b91c1c'],['Ligue 1','L1','#0f766e']],sel=new Set(),dj={v:'Tous'},vw={v:'v'};
+const EMB={
+PL:'<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2l16 5.5V19c0 9.5-6.500 16-16 19C10.500 35 4 28.500 4 19V7.500z" fill="#3d195b"/><path d="M11 26l2-10 5.500 5L20 13l1.500 8 5.500-5 2 10z" fill="#fff"/></svg>',
+LL:'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#e8501b"/><path d="M20 8l3.500 8 8.500.8-6.400 5.700 1.900 8.500L20 26.500 12.500 31l1.900-8.500L8 16.800l8.500-.8z" fill="#fff"/></svg>',
+SA:'<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2l16 9v18l-16 9L4 29V11z" fill="#0a5bd6"/><path d="M20 6l12.500 7v14L20 34 7.500 27V13z" fill="none" stroke="#fff" stroke-width="1.500"/><text x="20" y="27" text-anchor="middle" font-size="19" font-weight="800" font-family="Arial,sans-serif" fill="#fff">A</text></svg>',
+BL:'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#d20515"/><circle cx="20" cy="20" r="10" fill="#fff"/><path d="M20 14l5 3.600-1.900 5.900h-6.200L15 17.600z" fill="#d20515"/></svg>',
+L1:'<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2l17 18-17 18L3 20z" fill="#0b1f4d"/><text x="20" y="27" text-anchor="middle" font-size="20" font-weight="800" font-family="Arial,sans-serif" fill="#ffd23f">1</text></svg>',
+LC:'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#1d3a8a"/><path d="M12 9h16v5c0 6-3 9-8 10-5-1-8-4-8-10z" fill="#fff"/><path d="M12 11H8c0 5 2 7 5 8M28 11h4c0 5-2 7-5 8" fill="none" stroke="#fff" stroke-width="1.6"/><rect x="18.5" y="24" width="3" height="5" fill="#fff"/><rect x="14" y="29" width="12" height="3" rx="1" fill="#fff"/></svg>',
+EL:'<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="3" width="34" height="34" rx="9" fill="#e8590c"/><path d="M22 6L11 22h8l-2 12 12-18h-8z" fill="#fff"/></svg>'};
+const $=id=>document.getElementById(id);
+const ls={g:k=>{try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
+const U=()=>{try{return JSON.parse(ls.g('p360u')||'{}')}catch(e){return{}}};
+const SU=u=>ls.s('p360u',JSON.stringify(u));
+const me=()=>ls.g('p360s')||'';
+const rec=()=>U()[me()]||null;
+const trialLeft=()=>{const r=rec();return r?Math.ceil((r.c+TRIAL*864e5-Date.now())/864e5):0};
+const isSub=()=>{const r=rec();return !!r&&(r.s||0)>Date.now()};
+const access=()=>isSub()||trialLeft()>0;
+function lock(m){return '<article class="card"><div class="meta">'+m.lg+' · '+m.day+' · '+m.t+' GMT</div><h3>'+esc(m.h)+' – '+esc(m.a)+'</h3><p class="mu">Pronostic, cotes comparées et analyse réservés aux abonnés.</p><button class="p" onclick="$(\'sub\').scrollIntoView({behavior:\'smooth\'})">S’abonner pour 500 FCFA</button></article>'}
+function subUI(){
+ const el=$('sub');
+ if(isSub()){const d=Math.max(1,Math.ceil((rec().s-Date.now())/864e5));el.innerHTML='<div class="card ok"><b>Abonnement actif</b><div class="mu">Il reste '+d+' jour'+(d>1?'s':'')+'. Tous les matchs sont débloqués.</div></div>';return}
+ if(access()&&!subOpen.v){el.innerHTML='';return}
+ el.innerHTML='<div class="card sb"><h3>Garde l’accès à tous les pronostics</h3><p class="price"><b>500 FCFA</b> ou <b>1 $</b> <span class="mu">pour 1 mois</span></p><p class="mu">'+(trialLeft()>0?'Il te reste '+trialLeft()+' jour'+(trialLeft()>1?'s':'')+' d’essai gratuit.':'Ton essai gratuit de '+TRIAL+' jours est terminé.')+' L’abonnement garde l’accès à tous les matchs, aux cotes comparées et aux cotes justes.</p><div class="pb"><button class="p" id="om">Payer avec Orange Money</button><button class="p v" id="cd">Payer par carte Visa</button></div><p class="mu" id="pm"></p><label for="cd2">J’ai déjà un code d’accès</label><div class="cr"><input id="cd2" placeholder="Ex. ABC123" autocomplete="off" autocapitalize="characters"><button id="ok">Activer</button></div><p class="mu" id="em"></p></div>';
+ const go=(u,nom)=>{const w=WA?' <a href="https://wa.me/'+WA+'?text='+encodeURIComponent('Bonjour, j’ai payé mon abonnement Pronostics 360 ('+nom+').')+'" target="_blank" rel="noopener">Envoyer ma preuve de paiement sur WhatsApp</a>':'';
+  if(u){window.open(u,'_blank','noopener');$('pm').innerHTML='Après le paiement, tu reçois ton code d’accès. Entre-le ci-dessous.'+w}else $('pm').textContent='Le paiement '+nom+' sera bientôt disponible.'};
+ $('om').onclick=()=>go(PAY.om,'Orange Money');
+ $('cd').onclick=()=>go(PAY.card,'par carte Visa');
+ $('ok').onclick=()=>{const v=$('cd2').value.trim().toUpperCase();
+  if(CODES.includes(v)){const u=U(),r=u[me()];if(r){r.s=Date.now()+DAYS*864e5;SU(u)}subUI();topUI();draw()}
+  else $('em').textContent='Code invalide. Vérifie-le ou contacte-nous.'};
+}
+async function hp(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);const b=await crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:100000,hash:'SHA-256'},k,256);return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+function topUI(){
+ const t=trialLeft(),st=isSub()?'Abonné':(t>0?'Essai gratuit : '+t+' jour'+(t>1?'s':'')+' restant'+(t>1?'s':''):'Essai terminé');
+ $('top').innerHTML='<div class="tp"><div class="ti"><span class="mu">'+st+'</span><div class="tb"><button class="pill" id="mph">Changer ma photo</button>'+(isSub()?'':'<button class="pill acc" id="tsub">S’abonner</button>')+'<button class="pill" id="tout">Déconnexion</button></div></div><button class="av" id="av" aria-label="Changer ma photo">'+(rec()&&rec().ph?'<img src="'+rec().ph+'" alt="">':esc(me().charAt(0).toUpperCase()))+'</button></div><input type="file" id="pf" accept="image/*" hidden>';
+ const av=$('av');
+ av.onclick=()=>$('pf').click();
+ 
+ 
+ if($('tsub'))$('tsub').onclick=()=>{subOpen.v=!subOpen.v;subUI();if(subOpen.v)$('sub').scrollIntoView({behavior:'smooth'})};
+ $('mph').onclick=()=>$('pf').click();
+ $('pf').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(im.width,im.height),c=document.createElement('canvas');c.width=c.height=160;c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,160,160);const u=U(),r=u[me()];if(r){r.ph=c.toDataURL('image/jpeg',.85);SU(u)}topUI()};im.src=rd.result};rd.readAsDataURL(f)};
+ $('tout').onclick=()=>{ls.s('p360s','');subOpen.v=false;init()};
+}
+function showAuth(mode){
+ mode=mode||'in';const a=$('auth');$('app').hidden=true;a.hidden=false;
+ a.innerHTML='<h1>Pronostics 360</h1><p class="sub">Connecte-toi pour accéder aux pronostics.</p><div class="card au"><div class="seg" id="am"><button aria-pressed="'+(mode==='in')+'" data-m="in">Connexion</button><button aria-pressed="'+(mode==='up')+'" data-m="up">Créer un compte</button></div><label for="ae">E-mail</label><input id="ae" type="email" autocomplete="email" inputmode="email"><label for="ap">Mot de passe</label><input id="ap" type="password" autocomplete="'+(mode==='in'?'current-password':'new-password')+'">'+(mode==='up'?'<label for="ap2">Confirmer le mot de passe</label><input id="ap2" type="password" autocomplete="new-password"><p class="mu">'+TRIAL+' jours d’essai gratuit avec accès à tous les matchs. Ensuite 500 FCFA ou 1 $ par mois.</p>':'')+'<button class="p" id="ago" style="width:100%;margin-top:10px">'+(mode==='in'?'Se connecter':'Créer mon compte')+'</button><p class="mu" id="aerr" role="alert"></p><p class="mu">Ton compte est enregistré sur cet appareil.</p></div>';
+ a.querySelectorAll('#am button').forEach(b=>b.onclick=()=>showAuth(b.dataset.m));
+ const go=async()=>{const em=$('ae').value.trim().toLowerCase(),pw=$('ap').value,er=$('aerr');er.textContent='';
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){er.textContent='Entre une adresse e-mail valide.';return}
+  if(pw.length<6){er.textContent='Le mot de passe doit contenir au moins 6 caractères.';return}
+  const u=U();
+  try{
+   if(mode==='up'){
+    if(pw!==$('ap2').value){er.textContent='Les deux mots de passe sont différents.';return}
+    if(u[em]){er.textContent='Un compte existe déjà avec cet e-mail. Connecte-toi.';return}
+    const a2=Array.from(crypto.getRandomValues(new Uint8Array(12))).map(x=>x.toString(16).padStart(2,'0')).join('');
+    u[em]={a:a2,h:await hp(pw,a2),c:Date.now(),s:0};SU(u);ls.s('p360s',em);init();
+   }else{
+    const r=u[em];
+    if(!r||r.h!==await hp(pw,r.a)){er.textContent='E-mail ou mot de passe incorrect.';return}
+    ls.s('p360s',em);init();
+   }
+  }catch(e){er.textContent='Connexion impossible sur cet appareil. Réessaie.'}
+ };
+ $('ago').onclick=go;a.onkeydown=e=>{if(e.key==='Enter')go()};
+}
+function init(){
+ if(!rec()){ls.s('p360s','');showAuth('in');return}
+ $('auth').hidden=true;$('app').hidden=false;topUI();subUI();draw();
+}
+init();
+</script></body></html>

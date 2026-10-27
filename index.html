@@ -84,6 +84,14 @@ tr.f td{color:var(--mu)}
 .cr2{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--ln);text-align:center;font-size:13px;color:var(--mu)}
 .cr2 a{color:var(--h);font-weight:600}
 html,body{overflow-x:hidden}
+.rcode{font-size:30px;font-weight:800;letter-spacing:.12em;text-align:center;background:var(--in);border:1px dashed var(--ln);border-radius:10px;padding:14px;margin:10px 0;user-select:all}
+.card .lnk{background:none;border:0;color:var(--a);text-decoration:underline;padding:6px 0;margin-top:4px;font-weight:600}
+.ht{display:none}
+body.has-stade .bgfx::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(8,18,32,.5),rgba(8,18,32,.82)),url(fonds/stade.jpg) center/cover no-repeat}
+body.has-stade h1,body.has-stade .sub,body.has-stade .vt .mu,body.has-stade #app>p.mu:not(.warn2){color:#e8f0fb}
+body.has-joueur .hero{height:220px;background:linear-gradient(90deg,rgba(8,18,32,.88) 30%,rgba(8,18,32,.12)),url(fonds/joueur.jpg) right center/cover no-repeat}
+body.has-joueur .hero:before,body.has-joueur .hero:after,body.has-joueur .mv{display:none}
+body.has-joueur .ht{display:block;position:absolute;left:16px;bottom:16px;max-width:55%;color:#fff;font-weight:800;font-size:20px;line-height:1.2;z-index:2}
 .band{width:100vw;margin-left:calc(50% - 50vw);padding-left:calc(50vw - 50%);padding-right:calc(50vw - 50%);animation:sw .8s ease both}
 @keyframes sw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 .top.band{background:linear-gradient(90deg,#10203f,#2b57a6);margin-top:-16px;margin-bottom:12px;padding-top:12px;padding-bottom:12px}
@@ -129,7 +137,7 @@ html,body{overflow-x:hidden}
 </style></head><body><div class="bgfx" aria-hidden="true"><svg class="pl" viewBox="0 0 800 1200" preserveAspectRatio="xMidYMid slice"><rect x="40" y="40" width="720" height="1120" rx="6" pathLength="1"/><line x1="40" y1="600" x2="760" y2="600" pathLength="1"/><circle cx="400" cy="600" r="110" pathLength="1"/><rect x="220" y="40" width="360" height="170" pathLength="1"/><rect x="220" y="990" width="360" height="170" pathLength="1"/><rect x="320" y="40" width="160" height="60" pathLength="1"/><rect x="320" y="1100" width="160" height="60" pathLength="1"/></svg><i class="ball" style="left:5%;--s:46px;animation-duration:24s;animation-delay:-4s"></i><i class="ball" style="left:22%;--s:30px;animation-duration:19s;animation-delay:-12s"></i><i class="ball" style="left:41%;--s:56px;animation-duration:28s;animation-delay:-18s"></i><i class="ball" style="left:63%;--s:34px;animation-duration:21s;animation-delay:-7s"></i><i class="ball" style="left:80%;--s:50px;animation-duration:26s;animation-delay:-15s"></i><i class="ball" style="left:93%;--s:28px;animation-duration:18s;animation-delay:-1s"></i></div><main>
 <section id="auth" hidden></section><div id="app" hidden><div class="top band" id="top"></div>
 <h1>Pronostics 360</h1>
-<div class="hero" aria-hidden="true"><div class="mv"><div class="bl"></div></div></div>
+<div class="hero" aria-hidden="true"><div class="mv"><div class="bl"></div></div><div class="ht">Pronostics, cotes et probabilités pour chaque match</div></div>
 <p class="sub">Prochains matchs des grands championnats : comparaison des cotes trouvées et mes pronostics. Heures en GMT (Ouagadougou).</p>
 <div class="warn">Mise à jour le 18 octobre 2026, 22:40 GMT. Les cotes viennent de pages publiques et peuvent dater : vérifie-les chez ton bookmaker avant tout pari. Mes probabilités sont des estimations, pas des certitudes.</div>
 <div id="sub"></div>
@@ -223,7 +231,7 @@ function draw(){
  const L=$('list');L.className=vw.v==='h'?'h':'';
  L.innerHTML=shown.length?shown.map(m=>access()?card(m):lock(m)).join(''):'<div class="card"><p class="mu">Aucun match pour cette sélection. Choisis un autre championnat ou un autre jour.</p></div>';}
 /* Réglages : liens de paiement (Orange Money / carte Visa), numéro WhatsApp, codes d’accès */
-const PAY={om:'',card:''},WA='',CODES=['ESSAI30'],FREE=2,DAYS=30,TRIAL=14,subOpen={v:false},mem={};
+const PAY={om:'https://lrxzkgeq.mychariow.shop/prd_khwx15/checkout',card:'https://lrxzkgeq.mychariow.shop/prd_khwx15/checkout'},API='https://paiement.yameogo-roger3.workers.dev',WA='22678097713',CODES=['ESSAI30'],FREE=2,DAYS=30,TRIAL=14,subOpen={v:false},mem={};
 const LG=[['Ligue des champions','LC','#1d3a8a'],['Europa League','EL','#e8590c'],['Premier League','PL','#5b2a86'],['La Liga','LL','#c2410c'],['Serie A','SA','#1d4ed8'],['Bundesliga','BL','#b91c1c'],['Ligue 1','L1','#0f766e']],sel=new Set(),dj={v:'Tous'},vw={v:'v'};
 const EMB={
 PL:'<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2l16 5.5V19c0 9.5-6.500 16-16 19C10.500 35 4 28.500 4 19V7.500z" fill="#3d195b"/><path d="M11 26l2-10 5.500 5L20 13l1.500 8 5.500-5 2 10z" fill="#fff"/></svg>',
@@ -247,11 +255,12 @@ function subUI(){
  const el=$('sub');
  if(isSub()){const d=Math.max(1,Math.ceil((rec().s-Date.now())/864e5));el.innerHTML='<div class="card ok"><b>Abonnement actif</b><div class="mu">Il reste '+d+' jour'+(d>1?'s':'')+'. Tous les matchs sont débloqués.</div></div>';return}
  if(access()&&!subOpen.v){el.innerHTML='';return}
- el.innerHTML='<div class="card sb"><h3>Garde l’accès à tous les pronostics</h3><p class="price"><b>500 FCFA</b> ou <b>1 $</b> <span class="mu">pour 1 mois</span></p><p class="mu">'+(trialLeft()>0?'Il te reste '+trialLeft()+' jour'+(trialLeft()>1?'s':'')+' d’essai gratuit.':'Ton essai gratuit de '+TRIAL+' jours est terminé.')+' L’abonnement garde l’accès à tous les matchs, aux cotes comparées et aux cotes justes.</p><div class="pb"><button class="p" id="om">Payer avec Orange Money</button><button class="p v" id="cd">Payer par carte Visa</button></div><p class="mu" id="pm"></p><label for="cd2">J’ai déjà un code d’accès</label><div class="cr"><input id="cd2" placeholder="Ex. ABC123" autocomplete="off" autocapitalize="characters"><button id="ok">Activer</button></div><p class="mu" id="em"></p></div>';
+ el.innerHTML='<div class="card sb"><h3>Garde l’accès à tous les pronostics</h3><p class="price"><b>500 FCFA</b> ou <b>1 $</b> <span class="mu">pour 1 mois</span></p><p class="mu">'+(trialLeft()>0?'Il te reste '+trialLeft()+' jour'+(trialLeft()>1?'s':'')+' d’essai gratuit.':'Ton essai gratuit de '+TRIAL+' jours est terminé.')+' L’abonnement garde l’accès à tous les matchs, aux cotes comparées et aux cotes justes.</p><div class="pb"><button class="p" id="om">Payer avec Orange Money</button><button class="p v" id="cd">Payer par carte Visa</button></div><p class="mu" id="pm"></p>'+(API?'<button class="lnk" id="chk" type="button">J’ai payé : vérifier mon accès</button>':'')+'<label for="cd2">J’ai déjà un code d’accès</label><div class="cr"><input id="cd2" placeholder="Ex. ABC123" autocomplete="off" autocapitalize="characters"><button id="ok">Activer</button></div><p class="mu" id="em"></p></div>';
  const go=(u,nom)=>{const w=WA?' <a href="https://wa.me/'+WA+'?text='+encodeURIComponent('Bonjour, j’ai payé mon abonnement Pronostics 360 ('+nom+').')+'" target="_blank" rel="noopener">Envoyer ma preuve de paiement sur WhatsApp</a>':'';
-  if(u){window.open(u,'_blank','noopener');$('pm').innerHTML='Après le paiement, tu reçois ton code d’accès. Entre-le ci-dessous.'+w}else $('pm').textContent='Le paiement '+nom+' sera bientôt disponible.'};
+  if(u){window.open(u,'_blank','noopener');$('pm').innerHTML=(API?'Paie avec la <b>même adresse e-mail que ton compte</b> ('+esc(me())+'). Ton accès s’active automatiquement.':'Après le paiement, tu reçois ton code d’accès. Entre-le ci-dessous.')+w;watch()}else $('pm').textContent='Le paiement '+nom+' sera bientôt disponible.'};
  $('om').onclick=()=>go(PAY.om,'Orange Money');
  $('cd').onclick=()=>go(PAY.card,'par carte Visa');
+ if($('chk'))$('chk').onclick=()=>sync(true);
  $('ok').onclick=()=>{const v=$('cd2').value.trim().toUpperCase();
   if(CODES.includes(v)){const u=U(),r=u[me()];if(r){r.s=Date.now()+DAYS*864e5;SU(u)}subUI();topUI();draw()}
   else $('em').textContent='Code invalide. Vérifie-le ou contacte-nous.'};
@@ -259,20 +268,45 @@ function subUI(){
 async function hp(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);const b=await crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:100000,hash:'SHA-256'},k,256);return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
 function topUI(){
  const t=trialLeft(),st=isSub()?'Abonné':(t>0?'Essai gratuit : '+t+' jour'+(t>1?'s':'')+' restant'+(t>1?'s':''):'Essai terminé');
- $('top').innerHTML='<div class="tp"><div class="ti"><span class="mu">'+st+'</span><div class="tb"><button class="pill" id="mph">Changer ma photo</button>'+(isSub()?'':'<button class="pill acc" id="tsub">S’abonner</button>')+'<button class="pill" id="tout">Déconnexion</button></div></div><button class="av" id="av" aria-label="Changer ma photo">'+(rec()&&rec().ph?'<img src="'+rec().ph+'" alt="">':esc(me().charAt(0).toUpperCase()))+'</button></div><input type="file" id="pf" accept="image/*" hidden>';
+ $('top').innerHTML='<div class="tp"><div class="ti"><span class="mu">'+st+'</span><div class="tb"><button class="pill" id="mph">Changer ma photo</button>'+(isSub()?'':'<button class="pill acc" id="tsub">S’abonner</button>')+'<button class="pill" id="rcb">Code de secours</button><button class="pill" id="tout">Déconnexion</button></div></div><button class="av" id="av" aria-label="Changer ma photo">'+(rec()&&rec().ph?'<img src="'+rec().ph+'" alt="">':esc(me().charAt(0).toUpperCase()))+'</button></div><input type="file" id="pf" accept="image/*" hidden>';
  const av=$('av');
  av.onclick=()=>$('pf').click();
  
  
  if($('tsub'))$('tsub').onclick=()=>{subOpen.v=!subOpen.v;subUI();if(subOpen.v)$('sub').scrollIntoView({behavior:'smooth'})};
  $('mph').onclick=()=>$('pf').click();
+ $('rcb').onclick=async()=>{const u=U(),r=u[me()];if(!r)return;try{const rc=newRC(),ra=rnd();r.ra=ra;r.rh=await hp(nrc(rc),ra);SU(u);showRC(rc,()=>init())}catch(e){}};
  $('pf').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(im.width,im.height),c=document.createElement('canvas');c.width=c.height=160;c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,160,160);const u=U(),r=u[me()];if(r){r.ph=c.toDataURL('image/jpeg',.85);SU(u)}topUI()};im.src=rd.result};rd.readAsDataURL(f)};
  $('tout').onclick=()=>{ls.s('p360s','');subOpen.v=false;init()};
 }
+const rnd=()=>Array.from(crypto.getRandomValues(new Uint8Array(12))).map(x=>x.toString(16).padStart(2,'0')).join('');
+const AL='ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+function newRC(){const b=crypto.getRandomValues(new Uint8Array(8));let s='';for(let i=0;i<8;i++){s+=AL[b[i]%AL.length];if(i===3)s+='-'}return s}
+const nrc=s=>String(s).toUpperCase().replace(/[^A-Z0-9]/g,'');
+function showRC(rc,done){const a=$('auth');$('app').hidden=true;a.hidden=false;
+ a.innerHTML='<h1>Pronostics 360</h1><div class="card au"><h3>Ton code de récupération</h3><p class="rcode">'+rc+'</p><p class="mu">Note-le ou fais une capture d’écran. Si tu oublies ton mot de passe, ce code est le seul moyen de le changer. Il ne sera plus affiché.</p><div class="pb"><button class="p" id="rcc">Copier le code</button><button class="p v" id="rcok">J’ai noté mon code</button></div><p class="mu" id="rcm"></p></div>';
+ $('rcc').onclick=async()=>{try{await navigator.clipboard.writeText(rc);$('rcm').textContent='Code copié.'}catch(e){$('rcm').textContent='Copie impossible : note le code à la main.'}};
+ $('rcok').onclick=done;a.onkeydown=null}
+function showForgot(){const a=$('auth');
+ a.innerHTML='<h1>Pronostics 360</h1><p class="sub">Récupère ton accès avec ton code de récupération.</p><div class="card au"><label for="fe">E-mail</label><input id="fe" type="email" autocomplete="email" inputmode="email"><label for="fc">Code de récupération</label><input id="fc" autocomplete="off" autocapitalize="characters" placeholder="XXXX-XXXX"><label for="fp">Nouveau mot de passe</label><input id="fp" type="password" autocomplete="new-password"><label for="fp2">Confirmer le nouveau mot de passe</label><input id="fp2" type="password" autocomplete="new-password"><button class="p" id="fgo" style="width:100%;margin-top:10px">Changer mon mot de passe</button><p class="mu" id="ferr" role="alert"></p><button class="lnk" id="fbk" type="button">Retour à la connexion</button><p class="mu">Sans code de récupération, le mot de passe ne peut pas être récupéré.</p></div>';
+ $('fbk').onclick=()=>showAuth('in');
+ const go=async()=>{const er=$('ferr');er.textContent='';const em=$('fe').value.trim().toLowerCase(),c=nrc($('fc').value),pw=$('fp').value;
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){er.textContent='Entre une adresse e-mail valide.';return}
+  if(c.length!==8){er.textContent='Le code de récupération contient 8 caractères.';return}
+  if(pw.length<6){er.textContent='Le mot de passe doit contenir au moins 6 caractères.';return}
+  if(pw!==$('fp2').value){er.textContent='Les deux mots de passe sont différents.';return}
+  const u=U(),r=u[em];
+  try{
+   if(!r||!r.rh||r.rh!==await hp(c,r.ra)){er.textContent='E-mail ou code de récupération incorrect, ou compte créé sur un autre appareil.';return}
+   const na=rnd(),rc=newRC(),ra=rnd();
+   r.a=na;r.h=await hp(pw,na);r.ra=ra;r.rh=await hp(nrc(rc),ra);SU(u);ls.s('p360s',em);showRC(rc,()=>init());
+  }catch(e){er.textContent='Opération impossible sur cet appareil. Réessaie.'}};
+ $('fgo').onclick=go;a.onkeydown=e=>{if(e.key==='Enter')go()}}
 function showAuth(mode){
  mode=mode||'in';const a=$('auth');$('app').hidden=true;a.hidden=false;
- a.innerHTML='<h1>Pronostics 360</h1><p class="sub">Connecte-toi pour accéder aux pronostics.</p><div class="card au"><div class="seg" id="am"><button aria-pressed="'+(mode==='in')+'" data-m="in">Connexion</button><button aria-pressed="'+(mode==='up')+'" data-m="up">Créer un compte</button></div><label for="ae">E-mail</label><input id="ae" type="email" autocomplete="email" inputmode="email"><label for="ap">Mot de passe</label><input id="ap" type="password" autocomplete="'+(mode==='in'?'current-password':'new-password')+'">'+(mode==='up'?'<label for="ap2">Confirmer le mot de passe</label><input id="ap2" type="password" autocomplete="new-password"><p class="mu">'+TRIAL+' jours d’essai gratuit avec accès à tous les matchs. Ensuite 500 FCFA ou 1 $ par mois.</p>':'')+'<button class="p" id="ago" style="width:100%;margin-top:10px">'+(mode==='in'?'Se connecter':'Créer mon compte')+'</button><p class="mu" id="aerr" role="alert"></p><p class="mu">Ton compte est enregistré sur cet appareil.</p></div>';
+ a.innerHTML='<h1>Pronostics 360</h1><p class="sub">Connecte-toi pour accéder aux pronostics.</p><div class="card au"><div class="seg" id="am"><button aria-pressed="'+(mode==='in')+'" data-m="in">Connexion</button><button aria-pressed="'+(mode==='up')+'" data-m="up">Créer un compte</button></div><label for="ae">E-mail</label><input id="ae" type="email" autocomplete="email" inputmode="email"><label for="ap">Mot de passe</label><input id="ap" type="password" autocomplete="'+(mode==='in'?'current-password':'new-password')+'">'+(mode==='up'?'<label for="ap2">Confirmer le mot de passe</label><input id="ap2" type="password" autocomplete="new-password"><p class="mu">'+TRIAL+' jours d’essai gratuit avec accès à tous les matchs. Ensuite 500 FCFA ou 1 $ par mois.</p>':'')+'<button class="p" id="ago" style="width:100%;margin-top:10px">'+(mode==='in'?'Se connecter':'Créer mon compte')+'</button><p class="mu" id="aerr" role="alert"></p>'+(mode==='in'?'<button class="lnk" id="fgb" type="button">Mot de passe oublié ?</button>':'')+'<p class="mu">Ton compte est enregistré sur cet appareil.</p></div>';
  a.querySelectorAll('#am button').forEach(b=>b.onclick=()=>showAuth(b.dataset.m));
+ if($('fgb'))$('fgb').onclick=showForgot;
  const go=async()=>{const em=$('ae').value.trim().toLowerCase(),pw=$('ap').value,er=$('aerr');er.textContent='';
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){er.textContent='Entre une adresse e-mail valide.';return}
   if(pw.length<6){er.textContent='Le mot de passe doit contenir au moins 6 caractères.';return}
@@ -282,7 +316,7 @@ function showAuth(mode){
     if(pw!==$('ap2').value){er.textContent='Les deux mots de passe sont différents.';return}
     if(u[em]){er.textContent='Un compte existe déjà avec cet e-mail. Connecte-toi.';return}
     const a2=Array.from(crypto.getRandomValues(new Uint8Array(12))).map(x=>x.toString(16).padStart(2,'0')).join('');
-    u[em]={a:a2,h:await hp(pw,a2),c:Date.now(),s:0};SU(u);ls.s('p360s',em);init();
+    const rc=newRC(),ra=rnd();u[em]={a:a2,h:await hp(pw,a2),c:Date.now(),s:0,ra:ra,rh:await hp(nrc(rc),ra)};SU(u);ls.s('p360s',em);showRC(rc,()=>init());
    }else{
     const r=u[em];
     if(!r||r.h!==await hp(pw,r.a)){er.textContent='E-mail ou mot de passe incorrect.';return}
@@ -292,9 +326,25 @@ function showAuth(mode){
  };
  $('ago').onclick=go;a.onkeydown=e=>{if(e.key==='Enter')go()};
 }
+let wt=null;
+async function sync(manual){
+ const r=rec();if(!API||!r)return false;
+ const say=t=>{const m=$('pm');if(manual&&m)m.textContent=t};
+ try{
+  const c=new AbortController(),to=setTimeout(()=>c.abort(),8000);
+  const res=await fetch(API.replace(/\/$/,'')+'/statut?email='+encodeURIComponent(me()),{signal:c.signal});clearTimeout(to);
+  const d=await res.json();
+  if(d&&d.actif&&d.fin>Date.now()){const u=U(),x=u[me()];if(x&&(x.s||0)!==d.fin){x.s=d.fin;SU(u);subOpen.v=false;topUI();subUI();draw()}return true}
+  say('Paiement pas encore reçu pour '+me()+'. Patiente une minute puis réessaie.');
+ }catch(e){say('Vérification impossible pour le moment. Réessaie plus tard.')}
+ return false;
+}
+function watch(){clearInterval(wt);let n=0;wt=setInterval(async()=>{n++;if(await sync(false)||n>36||!rec()||isSub())clearInterval(wt)},10000)}
 function init(){
  if(!rec()){ls.s('p360s','');showAuth('in');return}
- $('auth').hidden=true;$('app').hidden=false;topUI();subUI();draw();
+ $('auth').hidden=true;$('app').hidden=false;topUI();subUI();draw();sync(false);
 }
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&rec()&&!isSub())sync(false)});
+['stade','joueur'].forEach(n=>{const i=new Image();i.onload=()=>document.body.classList.add('has-'+n);i.src='fonds/'+n+'.jpg'});
 init();
 </script></body></html>

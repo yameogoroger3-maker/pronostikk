@@ -250,8 +250,8 @@ function draw(){
  $('vw').querySelectorAll('button').forEach(b=>b.onclick=()=>{vw.v=b.dataset.v;draw()});
  const L=$('list');L.className=vw.v==='h'?'h':'';
  L.innerHTML=shown.length?shown.map(m=>access()?card(m):lock(m)).join(''):'<div class="card"><p class="mu">Aucun match pour cette sélection. Choisis un autre championnat ou un autre jour.</p></div>';}
-/* Réglages : liens de paiement (Orange Money / carte Visa), numéro WhatsApp, codes d’accès */
-const PAY={om:'https://lrxzkgeq.mychariow.shop/prd_khwx15/checkout',card:'https://lrxzkgeq.mychariow.shop/prd_khwx15/checkout'},API='https://paiement.yameogo-roger3.workers.dev',WA='22678097713',CODES=['ESSAI30'],FREE=2,DAYS=30,TRIAL=14,subOpen={v:false},mem={};
+/* Réglages : liens de paiement (Mobile Money / carte Visa), numéro WhatsApp, codes d’accès */
+const PAY={om:'https://lrxzkgeq.mychariow.shop/prd_41d5t02v',card:'https://lrxzkgeq.mychariow.shop/prd_41d5t02v'},API='https://paiement.yameogo-roger3.workers.dev',WA='22678097713',CODES=['ESSAI30'],FREE=2,DAYS=30,TRIAL=14,subOpen={v:false},mem={};
 const PRIX=600;
 const PROMO={actif:true,code:'PRONOSTIK360',lien:''};
 const INFOS=[{fr:'Digital 360 : une question ? Écris-nous sur WhatsApp +226 78097713',en:'Digital 360: any question? Message us on WhatsApp +226 78097713'}];
@@ -285,10 +285,10 @@ function subUI(){
  const el=$('sub');
  if(isSub()){const d=Math.max(1,Math.ceil((subEnd()-Date.now())/864e5));el.innerHTML='<div class="card ok"><b>Abonnement actif</b><div class="mu">Il reste '+d+' jour'+(d>1?'s':'')+'. Tous les matchs sont débloqués.</div></div>';return}
  if(access()&&!subOpen.v){el.innerHTML='';return}
- el.innerHTML='<div class="card sb"><h3>Garde l’accès à tous les pronostics</h3><p class="price"><b>'+PRIX+' FCFA</b> ou <b>≈ 1 $</b> <span class="mu">pour 1 mois</span></p><p class="mu">'+(trialLeft()>0?'Il te reste '+trialLeft()+' jour'+(trialLeft()>1?'s':'')+' d’essai gratuit.':'Ton essai gratuit de '+TRIAL+' jours est terminé.')+' L’abonnement garde l’accès à tous les matchs, aux cotes comparées et aux cotes justes.</p><div class="pb"><button class="p" id="om">Payer avec Orange Money</button><button class="p v" id="cd">Payer par carte Visa</button></div><p class="mu" id="pm"></p>'+(API?'<button class="lnk" id="chk" type="button">J’ai payé : vérifier mon accès</button>':'')+'<label for="cd2">J’ai déjà un code d’accès</label><div class="cr"><input id="cd2" placeholder="Ex. ABC123" autocomplete="off" autocapitalize="characters"><button id="ok">Activer</button></div><p class="mu" id="em"></p></div>';
+ el.innerHTML='<div class="card sb"><h3>Garde l’accès à tous les pronostics</h3><p class="price"><b>'+PRIX+' FCFA</b> ou <b>≈ 1 $</b> <span class="mu">pour 1 mois</span></p><p class="mu">'+(trialLeft()>0?'Il te reste '+trialLeft()+' jour'+(trialLeft()>1?'s':'')+' d’essai gratuit.':'Ton essai gratuit de '+TRIAL+' jours est terminé.')+' L’abonnement garde l’accès à tous les matchs, aux cotes comparées et aux cotes justes.</p><div class="pb"><button class="p" id="om">Payer avec Mobile Money</button><button class="p v" id="cd">Payer par carte Visa</button></div><p class="mu" id="pm"></p>'+(API?'<button class="lnk" id="chk" type="button">J’ai payé : vérifier mon accès</button>':'')+'<label for="cd2">J’ai déjà un code d’accès</label><div class="cr"><input id="cd2" placeholder="Ex. ABC123" autocomplete="off" autocapitalize="characters"><button id="ok">Activer</button></div><p class="mu" id="em"></p></div>';
  const go=(u,nom)=>{const w=WA?' <a href="https://wa.me/'+WA+'?text='+encodeURIComponent('Bonjour, j’ai payé mon abonnement Pronostik 360 ('+nom+').')+'" target="_blank" rel="noopener">Envoyer ma preuve de paiement sur WhatsApp</a>':'';
   if(u){window.open(u,'_blank','noopener');$('pm').innerHTML=(API?'Paie avec la <b>même adresse e-mail que ton compte</b> ('+esc(me())+'). Ton accès s’active automatiquement.':'Après le paiement, tu reçois ton code d’accès. Entre-le ci-dessous.')+w;watch()}else $('pm').textContent='Le paiement '+nom+' sera bientôt disponible.'};
- $('om').onclick=()=>go(PAY.om,'Orange Money');
+ $('om').onclick=()=>go(PAY.om,'Mobile Money');
  $('cd').onclick=()=>go(PAY.card,'par carte Visa');
  if($('chk'))$('chk').onclick=()=>sync(true);
  $('ok').onclick=()=>{const v=$('cd2').value.trim().toUpperCase();
@@ -389,7 +389,7 @@ const EN={
 "Pronostic, cotes comparées et analyse réservés aux abonnés.":"Prediction, compared odds and analysis are for subscribers only.",
 "Abonnement actif":"Subscription active","Garde l’accès à tous les pronostics":"Keep access to all predictions",
 "pour 1 mois":"for 1 month","ou":"or",
-"Payer avec Orange Money":"Pay with Orange Money","Payer par carte Visa":"Pay by Visa card",
+"Payer avec Mobile Money":"Pay with Mobile Money","Payer par carte Visa":"Pay by Visa card",
 "J’ai payé : vérifier mon accès":"I paid: check my access","J’ai déjà un code d’accès":"I already have an access code",
 "Activer":"Activate","Ex. ABC123":"e.g. ABC123",
 "Paie avec la":"Pay with the","même adresse e-mail que ton compte":"same e-mail address as your account",

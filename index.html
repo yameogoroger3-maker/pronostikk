@@ -183,8 +183,8 @@ body.has-joueur .ht{display:block;position:absolute;left:16px;bottom:16px;max-wi
 <h2 class="sec band">Championnats</h2><div class="rail" id="lgs"></div><p class="mu">Glisse vers la droite pour voir tous les championnats →</p>
 <h2 class="sec band">Jour</h2><div class="rail" id="days"></div>
 <div class="vt"><span class="mu" id="cnt"></span><div class="seg" id="vw"></div></div>
-<div id="res"></div>
 <div id="list"></div>
+<div id="res"></div>
 <p class="mu warn2 band">Les probabilités SportRadar viennent d’un fournisseur de données sportives et celles de l’Europa League d’un site de pronostics, pas de bookmakers. Outil d’aide à la décision. Les paris comportent des risques. Réservé aux adultes.</p>
 </div><footer class="cr2 band">Développé par <b>Digital 360</b> · <a href="https://wa.me/22678097713" target="_blank" rel="noopener">WhatsApp +226 78097713</a></footer></main>
 <script>
@@ -231,9 +231,10 @@ function card(m){
  +'<div class="ev"><div>Plus de 2,5 buts<b>'+m.ou+'%</b></div><div>Les deux marquent<b>'+m.bt+'%</b></div><div>Double chance<b>'+dc+' · '+(100-p[low])+'%</b></div><div>Score probable<b>'+m.sc+'</b></div></div>'
  +'<details><summary>Comparaison des bookmakers</summary>'+tb+'</details><p class="note">'+esc(m.n)+'</p></article>';}
 function draw(){
- const n=l=>M.filter(m=>m.lg===l).length;
- $('lgs').innerHTML=LG.map(g=>'<button class="tile" data-l="'+g[0]+'" aria-pressed="'+sel.has(g[0])+'"'+(n(g[0])?'':' disabled')+'><span class="bd">'+EMB[g[1]]+'</span><b>'+g[0]+'</b><small>'+(n(g[0])?n(g[0])+' match'+(n(g[0])>1?'s':''):'Bientôt')+'</small></button>').join('');
- $('lgs').querySelectorAll('button').forEach(b=>b.onclick=()=>{const l=b.dataset.l;sel.has(l)?sel.delete(l):sel.add(l);draw()});
+ const rl=$('lgs').scrollLeft,n=l=>l==='*'?M.length:M.filter(m=>m.lg===l).length;
+ $('lgs').innerHTML=[['*','AL'],...LG].map(g=>'<button class="tile" data-l="'+g[0]+'" aria-pressed="'+(g[0]==='*'?!sel.size:sel.has(g[0]))+'"'+(n(g[0])?'':' disabled')+'><span class="bd">'+EMB[g[1]]+'</span><b>'+(g[0]==='*'?'Tous':g[0])+'</b><small>'+(n(g[0])?n(g[0])+' match'+(n(g[0])>1?'s':''):'Bientôt')+'</small></button>').join('');
+ $('lgs').scrollLeft=rl;
+ $('lgs').querySelectorAll('button').forEach(b=>b.onclick=()=>{const l=b.dataset.l,was=sel.has(l);sel.clear();if(l!=='*'&&!was)sel.add(l);dj.v='Tous';draw();newsUI();const t=$('days').previousElementSibling;if(t)t.scrollIntoView({behavior:'smooth',block:'start'})});
  const pool=M.filter(m=>!sel.size||sel.has(m.lg));
  const ds=['Tous',...new Set(pool.map(m=>m.day))];
  if(!ds.includes(dj.v))dj.v='Tous';
@@ -270,6 +271,7 @@ const COUPONS=[
 const INFOS=[{fr:'Digital 360 : une question ? Écris-nous sur WhatsApp +226 78097713',en:'Digital 360: any question? Message us on WhatsApp +226 78097713'}];
 const LG=[['Ligue des champions','LC','#1d3a8a'],['Europa League','EL','#e8590c'],['Premier League','PL','#5b2a86'],['La Liga','LL','#c2410c'],['Serie A','SA','#1d4ed8'],['Bundesliga','BL','#b91c1c'],['Ligue 1','L1','#0f766e']],sel=new Set(),dj={v:'Tous'},vw={v:'v'};
 const EMB={
+AL:'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#2b57a6"/><circle cx="20" cy="20" r="11" fill="#fff"/><polygon points="20,14 25.7,18.2 23.5,24.8 16.5,24.8 14.3,18.2" fill="#14213d"/></svg>',
 PL:'<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2l16 5.5V19c0 9.5-6.500 16-16 19C10.500 35 4 28.500 4 19V7.500z" fill="#3d195b"/><path d="M11 26l2-10 5.500 5L20 13l1.500 8 5.500-5 2 10z" fill="#fff"/></svg>',
 LL:'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#e8501b"/><path d="M20 8l3.500 8 8.500.8-6.400 5.700 1.900 8.500L20 26.500 12.500 31l1.900-8.500L8 16.800l8.500-.8z" fill="#fff"/></svg>',
 SA:'<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2l16 9v18l-16 9L4 29V11z" fill="#0a5bd6"/><path d="M20 6l12.500 7v14L20 34 7.500 27V13z" fill="none" stroke="#fff" stroke-width="1.500"/><text x="20" y="27" text-anchor="middle" font-size="19" font-weight="800" font-family="Arial,sans-serif" fill="#fff">A</text></svg>',
@@ -529,7 +531,7 @@ function newsItems(){
  const it=[];INFOS.forEach(x=>it.push(L(x.fr,x.en)));
  if(PROMO.actif&&PROMO.code)it.push(L('Code promo 1xBet : '+PROMO.code,'1xBet promo code: '+PROMO.code));
  const tn=x=>LANG==='en'?x.replace('Séville','Seville'):x;
- const ms=M.slice();
+ const ms=M.filter(m=>!sel.size||sel.has(m.lg));
  if(ms.length){
   const m=ms[0];
   it.push(L('Prochain match : '+m.h+' – '+m.a+' ('+m.lg+') le '+m.day+' à '+m.t+' GMT','Next match: '+tn(m.h)+' – '+tn(m.a)+' ('+(m.lg==='Ligue des champions'?'Champions League':m.lg)+') on '+m.day+' at '+m.t+' GMT'));

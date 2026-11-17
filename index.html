@@ -177,7 +177,7 @@ body.has-joueur .ht{display:block;position:absolute;left:16px;bottom:16px;max-wi
 <h1 class="brand"><span class="logo" aria-hidden="true"></span>Pronostik 360</h1>
 <div class="hero" id="coupons"></div>
 <p class="sub">Prochains matchs des grands championnats : comparaison des cotes trouvées et mes pronostics. Heures en GMT (Ouagadougou).</p>
-<div class="warn">Mise à jour le 10 novembre 2026. Les cotes viennent de pages publiques et peuvent dater : vérifie-les chez ton bookmaker avant tout pari. Mes probabilités sont des estimations, pas des certitudes.</div>
+<div class="warn">Mise à jour le 16 novembre 2026. Les cotes viennent de pages publiques et peuvent dater : vérifie-les chez ton bookmaker avant tout pari. Mes probabilités sont des estimations, pas des certitudes.</div>
 <div id="sub"></div>
 <div id="promo"></div>
 <h2 class="sec band">Championnats</h2><div class="rail" id="lgs"></div><p class="mu">Glisse vers la droite pour voir tous les championnats →</p>
@@ -185,26 +185,26 @@ body.has-joueur .ht{display:block;position:absolute;left:16px;bottom:16px;max-wi
 <div class="vt"><span class="mu" id="cnt"></span><div class="seg" id="vw"></div></div>
 <div id="list"></div>
 <div id="res"></div>
-<p class="mu warn2 band">Les probabilités SportRadar viennent d’un fournisseur de données sportives et celles de l’Europa League d’un site de pronostics, pas de bookmakers. Outil d’aide à la décision. Les paris comportent des risques. Réservé aux adultes.</p>
+<p class="mu warn2 band">Outil d’aide à la décision. Les paris comportent des risques. Réservé aux adultes.</p>
 </div><footer class="cr2 band">Développé par <b>Digital 360</b> · <a href="https://wa.me/22678097713" target="_blank" rel="noopener">WhatsApp +226 78097713</a></footer></main>
 <script>
 const CF=['Faible','Moyenne','Élevée'];
 const M=[];
 (()=>{
 const PL='Premier League',LL='La Liga',SA='Serie A',BL='Bundesliga',L1='Ligue 1',UC='Ligue des champions';
-const d1='Ven. 20 nov',d2='Sam. 21 nov',d3='Dim. 22 nov',d4='Lun. 23 nov',d5='Mar. 24 nov',d6='Mer. 25 nov';
+const d1='Ven. 20 nov',d2='Sam. 21 nov',d3='Dim. 22 nov',d4='Lun. 23 nov',d5='Mar. 24 nov',d6='Mer. 25 nov',d7='Ven. 27 nov';
 function gr(l,k){const P=[Math.exp(-l)],Q=[Math.exp(-k)];for(let i=1;i<9;i++){P.push(P[i-1]*l/i);Q.push(Q[i-1]*k/i)}let H=0,D=0,A=0,O=0,B=0;const S=[];for(let i=0;i<9;i++)for(let j=0;j<9;j++){const p=P[i]*Q[j];if(i>j)H+=p;else if(i===j)D+=p;else A+=p;if(i+j>2)O+=p;if(i&&j)B+=p;S.push([i+'-'+j,p])}const t=H+D+A;S.sort((x,y)=>y[1]-x[1]);return{p:[H/t,D/t,A/t],O:O/t,B:B/t,S:S}}
 function fit(p){let b=[1.3,1.1,9],st=.1,l0=.3,l1=3.8,k0=.2,k1=3.2;for(let r=0;r<2;r++){for(let l=l0;l<=l1;l+=st)for(let k=k0;k<=k1;k+=st){const g=gr(l,k).p,e=Math.pow(g[0]-p[0]/100,2)+Math.pow(g[1]-p[1]/100,2)+Math.pow(g[2]-p[2]/100,2);if(e<b[2])b=[l,k,e]}l0=Math.max(.1,b[0]-.1);l1=b[0]+.1;k0=Math.max(.1,b[1]-.1);k1=b[1]+.1;st=.02}return b}
-const mk=r=>{const f=fit(r[5]),g=gr(f[0],f[1]),mx=Math.max(...r[5]);return{lg:r[0],day:r[1],t:r[2],h:r[3],a:r[4],o:[],pr:r[5],p:r[5],ou:Math.round(g.O*100),bt:Math.round(g.B*100),sc:g.S[0][0]+' ou '+g.S[1][0],cf:mx>=70?2:mx>=50?1:0,n:'Probabilités reprises de SportRadar. Les buts et les scores sont calculés à partir d’elles.'}};
+const mk=r=>{const f=fit(r[5]),g=gr(f[0],f[1]),mx=Math.max(...r[5]);return{lg:r[0],day:r[1],t:r[2],h:r[3],a:r[4],o:[],pr:r[5],p:r[5],ou:Math.round(g.O*100),bt:Math.round(g.B*100),sc:g.S[0][0]+' ou '+g.S[1][0],cf:mx>=70?2:mx>=50?1:0,n:'Probabilités estimées. Les buts et les scores sont calculés à partir d’elles.'}};
 const AU=[
-[PL,d2,'12:30','Manchester City','Fulham',[67,19,14]],[PL,d2,'15:00','Aston Villa','Sunderland',[55,24,21]],[PL,d2,'15:00','Bournemouth','Nottingham Forest',[47,27,26]],[PL,d2,'15:00','Chelsea','Leeds',[51,25,24]],[PL,d2,'15:00','Coventry','Crystal Palace',[40,27,33]],[PL,d2,'15:00','Tottenham','Ipswich',[62,21,17]],[PL,d2,'17:30','Newcastle','Arsenal',[17,22,61]],[PL,d3,'14:00','Hull','Brighton',[16,21,63]],[PL,d3,'16:30','Liverpool','Manchester United',[56,22,22]],[PL,d4,'20:00','Brentford','Everton',[47,26,27]],
-[LL,d1,'20:00','Athletic Bilbao','Espanyol',[66,20,14]],[LL,d2,'13:00','Alavés','Deportivo',[45,28,27]],[LL,d2,'15:15','Rayo Vallecano','Valencia',[49,27,24]],[LL,d2,'17:30','Séville','Real Betis',[32,27,41]],[LL,d2,'20:00','Real Madrid','Celta Vigo',[81,12,7]],[LL,d3,'13:00','Barcelona','Villarreal',[79,12,9]],[LL,d3,'15:15','Racing Santander','Real Sociedad',[31,25,44]],[LL,d3,'17:30','Osasuna','Málaga',[55,25,20]],[LL,d3,'20:00','Getafe','Atlético Madrid',[17,24,59]],[LL,d4,'20:00','Levante','Elche',[44,26,30]],
-[SA,d2,'14:00','Como','Cagliari',[73,16,11]],[SA,d2,'14:00','Lazio','Lecce',[71,17,12]],[SA,d2,'17:00','Parma','Roma',[10,16,74]],[SA,d2,'19:45','Napoli','Torino',[66,20,14]],[SA,d3,'11:30','Juventus','Venezia',[71,18,11]],[SA,d3,'14:00','Bologna','Udinese',[56,25,19]],[SA,d3,'14:00','Sassuolo','Genoa',[38,28,34]],[SA,d3,'17:00','Milan','Frosinone',[63,19,18]],[SA,d3,'19:45','Atalanta','Inter',[19,21,60]],[SA,d4,'19:45','Monza','Fiorentina',[28,25,47]],
-[BL,d1,'19:30','Bayern Munich','Cologne',[89,7,4]],[BL,d2,'14:30','Leverkusen','Paderborn',[76,14,10]],[BL,d2,'14:30','Eintracht Frankfurt','Hoffenheim',[40,24,36]],[BL,d2,'14:30','Union Berlin','Leipzig',[18,21,61]],[BL,d2,'14:30','Mönchengladbach','Dortmund',[20,21,59]],[BL,d2,'14:30','Elversberg','Freiburg',[29,25,46]],[BL,d2,'17:30','Schalke 04','Stuttgart',[25,23,52]],[BL,d3,'14:30','Augsburg','Mainz',[35,25,40]],[BL,d3,'16:30','Werder Bremen','Hamburg',[57,22,21]],
-[L1,d1,'19:45','Troyes','Le Havre',[46,27,27]],[L1,d2,'16:15','Nice','PSG',[15,18,67]],[L1,d2,'19:45','Lens','Toulouse',[51,24,25]],[L1,d2,'19:45','Lille','Lyon',[40,29,31]],[L1,d2,'19:45','Monaco','Auxerre',[69,18,13]],[L1,d2,'19:45','Strasbourg','Brest',[43,25,32]],[L1,d3,'14:00','Paris FC','Angers',[71,18,11]],[L1,d3,'16:15','Lorient','Rennes',[33,27,40]],[L1,d3,'19:45','Marseille','Le Mans',[69,18,13]],
-[UC,d5,'17:45','Bodø/Glimt','LASK Linz',[63,19,18]],[UC,d5,'17:45','Galatasaray','Aston Villa',[36,24,40]],[UC,d5,'20:00','Arsenal','Dortmund',[69,19,12]],[UC,d5,'20:00','Como','AEK Athens',[73,16,11]],[UC,d5,'20:00','Feyenoord','Porto',[34,25,41]],[UC,d5,'20:00','Manchester City','Napoli',[78,13,9]],[UC,d5,'20:00','Leipzig','Lens',[67,17,16]],[UC,d5,'20:00','Real Madrid','PSV',[82,11,7]],[UC,d5,'20:00','Slovan Bratislava','Real Betis',[10,15,75]],[UC,d6,'17:45','Sabah','Barcelona',[4,7,89]]];
+[PL,d2,'12:30','Manchester City','Fulham',[70,17,13]],[PL,d2,'15:00','Aston Villa','Sunderland',[54,25,21]],[PL,d2,'15:00','Bournemouth','Nottingham Forest',[47,27,26]],[PL,d2,'15:00','Chelsea','Leeds',[51,25,24]],[PL,d2,'15:00','Coventry','Crystal Palace',[41,26,33]],[PL,d2,'15:00','Tottenham','Ipswich',[62,21,17]],[PL,d2,'17:30','Newcastle','Arsenal',[17,22,61]],[PL,d3,'14:00','Hull','Brighton',[16,21,63]],[PL,d3,'16:30','Liverpool','Manchester United',[55,23,22]],[PL,d4,'20:00','Brentford','Everton',[46,26,28]],
+[LL,d1,'20:00','Athletic Bilbao','Espanyol',[66,20,14]],[LL,d2,'13:00','Alavés','Deportivo',[45,29,26]],[LL,d2,'15:15','Rayo Vallecano','Valencia',[49,27,24]],[LL,d2,'17:30','Séville','Real Betis',[31,26,43]],[LL,d2,'20:00','Real Madrid','Celta Vigo',[81,12,7]],[LL,d3,'13:00','Barcelona','Villarreal',[81,11,8]],[LL,d3,'15:15','Racing Santander','Real Sociedad',[31,24,45]],[LL,d3,'17:30','Osasuna','Málaga',[55,25,20]],[LL,d3,'20:00','Getafe','Atlético Madrid',[17,24,59]],[LL,d4,'20:00','Levante','Elche',[44,26,30]],
+[SA,d2,'14:00','Como','Cagliari',[74,16,10]],[SA,d2,'14:00','Lazio','Lecce',[70,18,12]],[SA,d2,'17:00','Parma','Roma',[10,15,75]],[SA,d2,'19:45','Napoli','Torino',[66,20,14]],[SA,d3,'11:30','Juventus','Venezia',[71,18,11]],[SA,d3,'14:00','Bologna','Udinese',[56,25,19]],[SA,d3,'14:00','Sassuolo','Genoa',[35,29,36]],[SA,d3,'17:00','Milan','Frosinone',[63,20,17]],[SA,d3,'19:45','Atalanta','Inter',[19,21,60]],[SA,d4,'19:45','Monza','Fiorentina',[26,25,49]],
+[BL,d1,'19:30','Bayern Munich','Cologne',[89,7,4]],[BL,d2,'14:30','Leverkusen','Paderborn',[76,14,10]],[BL,d2,'14:30','Eintracht Frankfurt','Hoffenheim',[41,24,35]],[BL,d2,'14:30','Union Berlin','Leipzig',[18,20,62]],[BL,d2,'14:30','Mönchengladbach','Dortmund',[20,21,59]],[BL,d2,'14:30','Elversberg','Freiburg',[28,25,47]],[BL,d2,'17:30','Schalke 04','Stuttgart',[24,23,53]],[BL,d3,'14:30','Augsburg','Mainz',[35,25,40]],[BL,d3,'16:30','Werder Bremen','Hamburg',[57,22,21]],[BL,d7,'19:30','Werder Bremen','Mönchengladbach',[54,23,23]],
+[L1,d1,'19:45','Troyes','Le Havre',[46,27,27]],[L1,d2,'16:15','Nice','PSG',[15,18,67]],[L1,d2,'19:45','Lens','Toulouse',[52,24,24]],[L1,d2,'19:45','Lille','Lyon',[40,29,31]],[L1,d2,'19:45','Monaco','Auxerre',[68,18,14]],[L1,d2,'19:45','Strasbourg','Brest',[43,26,31]],[L1,d3,'14:00','Paris FC','Angers',[72,17,11]],[L1,d3,'16:15','Lorient','Rennes',[34,27,39]],[L1,d3,'19:45','Marseille','Le Mans',[68,18,14]],[L1,d7,'19:45','Brest','Paris FC',[31,27,42]],
+[UC,d5,'17:45','Bodø/Glimt','LASK Linz',[63,19,18]],[UC,d5,'17:45','Galatasaray','Aston Villa',[37,24,39]],[UC,d5,'20:00','Arsenal','Dortmund',[69,19,12]],[UC,d5,'20:00','Como','AEK Athens',[73,16,11]],[UC,d5,'20:00','Feyenoord','Porto',[34,26,40]],[UC,d5,'20:00','Manchester City','Napoli',[78,13,9]],[UC,d5,'20:00','Leipzig','Lens',[67,18,15]],[UC,d5,'20:00','Real Madrid','PSV',[81,11,8]],[UC,d5,'20:00','Slovan Bratislava','Real Betis',[10,15,75]],[UC,d6,'17:45','Sabah','Barcelona',[4,7,89]]];
 AU.forEach(r=>M.push(mk(r)));
-const DN={'Ven. 20 nov':[10,20],'Sam. 21 nov':[10,21],'Dim. 22 nov':[10,22],'Lun. 23 nov':[10,23],'Mar. 24 nov':[10,24],'Mer. 25 nov':[10,25]};
+const DN={'Ven. 20 nov':[10,20],'Sam. 21 nov':[10,21],'Dim. 22 nov':[10,22],'Lun. 23 nov':[10,23],'Mar. 24 nov':[10,24],'Mer. 25 nov':[10,25],'Ven. 27 nov':[10,27]};
 M.sort((x,y)=>DN[x.day][1]-DN[y.day][1]||x.t.localeCompare(y.t));
 const nowT=Date.now();
 for(let i=M.length-1;i>=0;i--){const hm=M[i].t.split(':'),k=Date.UTC(2026,DN[M[i].day][0],DN[M[i].day][1],+hm[0],+hm[1]);if(k<nowT-2*3600000)M.splice(i,1)}
@@ -222,19 +222,20 @@ function card(m){
  const best=[0,1,2].map(k=>Math.max(0,...m.o.map(r=>r[k+1]||0)));
  let tb='';
  if(m.o.length){tb='<div class="tw"><table><tr><th>Source</th><th>1</th><th>X</th><th>2</th></tr>'+m.o.map(r=>'<tr><td>'+esc(r[0])+'</td>'+[1,2,3].map(k=>'<td'+(r[k]&&r[k]===best[k-1]?' class="b"':'')+'>'+(r[k]?f2(r[k]):'–')+'</td>').join('')+'</tr>').join('')+'<tr><td><b>Meilleure cote</b></td>'+best.map(v=>'<td class="b">'+(v?f2(v):'–')+'</td>').join('')+'</tr>'
-  +'<tr class="f"><td>Cote juste (mon avis)</td>'+p.map(v=>'<td>'+f2(100/v)+'</td>').join('')+'</tr></table></div><p class="mu">En vert : la meilleure cote trouvée. Si elle dépasse la cote juste, elle est intéressante.'+(m.pr?' Probabilités '+(m.src||'SportRadar')+' : '+m.pr.map(v=>v+' %').join(' · ')+'.':'')+'</p>';}
- else tb='<p class="mu">Pas de cotes de bookmakers trouvées pour ce match. Probabilités '+(m.src||'SportRadar')+' : '+(m.pr||m.p).map(v=>v+' %').join(' · ')+'. Ma cote juste : '+p.map((v,k)=>['1','X','2'][k]+' '+f2(100/v)).join(' · ')+'.</p>';
+  +'<tr class="f"><td>Cote juste (mon avis)</td>'+p.map(v=>'<td>'+f2(100/v)+'</td>').join('')+'</tr></table></div><p class="mu">En vert : la meilleure cote trouvée. Si elle dépasse la cote juste, elle est intéressante.'+(m.pr?' Probabilités estimées : '+m.pr.map(v=>v+' %').join(' · ')+'.':'')+'</p>';}
+ else tb='<p class="mu">Probabilités estimées : '+(m.pr||m.p).map(v=>v+' %').join(' · ')+'. Ma cote juste : '+p.map((v,k)=>['1','X','2'][k]+' '+f2(100/v)).join(' · ')+'.</p>';
  return '<article class="card"><div class="meta">'+m.lg+' · '+m.day+' · '+m.t+' GMT</div><h3>'+esc(m.h)+' – '+esc(m.a)+'</h3>'
  +'<div class="pitch"><div style="width:'+p[0]+'%;background:var(--h)">'+p[0]+'%</div><div style="width:'+p[1]+'%;background:var(--d)">'+p[1]+'%</div><div style="width:'+p[2]+'%;background:var(--a)">'+p[2]+'%</div></div>'
  +'<div class="lg"><span>Domicile</span><span>Nul</span><span>Extérieur</span></div>'
  +'<div class="pick">Pronostic : <b>'+esc(pickTxt)+'</b><span class="tag">Confiance '+CF[m.cf].toLowerCase()+'</span></div>'
  +'<div class="ev"><div>Plus de 2,5 buts<b>'+m.ou+'%</b></div><div>Les deux marquent<b>'+m.bt+'%</b></div><div>Double chance<b>'+dc+' · '+(100-p[low])+'%</b></div><div>Score probable<b>'+m.sc+'</b></div></div>'
- +'<details><summary>Comparaison des bookmakers</summary>'+tb+'</details><p class="note">'+esc(m.n)+'</p></article>';}
+ +'<details><summary>Cotes justes estimées</summary>'+tb+'</details><p class="note">'+esc(m.n)+'</p></article>';}
 function draw(){
- const rl=$('lgs').scrollLeft,n=l=>l==='*'?M.length:M.filter(m=>m.lg===l).length;
- $('lgs').innerHTML=[['*','AL'],...LG].map(g=>'<button class="tile" data-l="'+g[0]+'" aria-pressed="'+(g[0]==='*'?!sel.size:sel.has(g[0]))+'"'+(n(g[0])?'':' disabled')+'><span class="bd">'+EMB[g[1]]+'</span><b>'+(g[0]==='*'?'Tous':g[0])+'</b><small>'+(n(g[0])?n(g[0])+' match'+(n(g[0])>1?'s':''):'Bientôt')+'</small></button>').join('');
+ const rl=$('lgs').scrollLeft,n=l=>M.filter(m=>m.lg===l).length;
+ {const c0=[...sel][0];if(M.length&&(!c0||!n(c0))){sel.clear();sel.add(M[0].lg)}}
+ $('lgs').innerHTML=LG.map(g=>'<button class="tile" data-l="'+g[0]+'" aria-pressed="'+sel.has(g[0])+'"'+(n(g[0])?'':' disabled')+'><span class="bd">'+EMB[g[1]]+'</span><b>'+g[0]+'</b><small>'+(n(g[0])?n(g[0])+' match'+(n(g[0])>1?'s':''):'Bientôt')+'</small></button>').join('');
  $('lgs').scrollLeft=rl;
- $('lgs').querySelectorAll('button').forEach(b=>b.onclick=()=>{const l=b.dataset.l,was=sel.has(l);sel.clear();if(l!=='*'&&!was)sel.add(l);dj.v='Tous';draw();newsUI();const t=$('days').previousElementSibling;if(t)t.scrollIntoView({behavior:'smooth',block:'start'})});
+ $('lgs').querySelectorAll('button').forEach(b=>b.onclick=()=>{const l=b.dataset.l;if(sel.has(l))return;sel.clear();sel.add(l);dj.v='Tous';draw();newsUI();const t=$('days').previousElementSibling;if(t)t.scrollIntoView({behavior:'smooth',block:'start'})});
  const pool=M.filter(m=>!sel.size||sel.has(m.lg));
  const ds=['Tous',...new Set(pool.map(m=>m.day))];
  if(!ds.includes(dj.v))dj.v='Tous';
@@ -252,20 +253,20 @@ const PRIX=600;
 const PROMO={actif:true,code:'PRONOSTIK360',lien:''};
 const COUPONS=[
  {niv:'sur',lien:'',legs:[
-  {m:'Bayern Munich – Cologne',d:'Ven. 20 nov · 19:30 GMT',p:{fr:'Victoire Bayern Munich',en:'Bayern Munich to win'},pr:89},
-  {m:'Manchester City – Napoli',d:'Mar. 24 nov · 20:00 GMT',p:{fr:'Victoire Manchester City',en:'Manchester City to win'},pr:78},
+  {m:'Bayern Munich – Cologne',d:'Ven. 20 nov · 19:30 GMT',p:{fr:'Victoire Bayern Munich',en:'Bayern Munich to win'},pr:89.4},
+  {m:'Manchester City – Napoli',d:'Mar. 24 nov · 20:00 GMT',p:{fr:'Victoire Manchester City',en:'Manchester City to win'},pr:77.6},
   {m:'Sabah – Barcelona',d:'Mer. 25 nov · 17:45 GMT',p:{fr:'Victoire Barcelona',en:'Barcelona to win'},pr:89}]},
  {niv:'moyen',lien:'',legs:[
-  {m:'Leverkusen – Paderborn',d:'Sam. 21 nov · 14:30 GMT',p:{fr:'Victoire Leverkusen',en:'Leverkusen to win'},pr:76},
-  {m:'Napoli – Torino',d:'Sam. 21 nov · 19:45 GMT',p:{fr:'Victoire Napoli',en:'Napoli to win'},pr:66},
-  {m:'Juventus – Venezia',d:'Dim. 22 nov · 11:30 GMT',p:{fr:'Victoire Juventus',en:'Juventus to win'},pr:71},
+  {m:'Leverkusen – Paderborn',d:'Sam. 21 nov · 14:30 GMT',p:{fr:'Victoire Leverkusen',en:'Leverkusen to win'},pr:76.4},
+  {m:'Napoli – Torino',d:'Sam. 21 nov · 19:45 GMT',p:{fr:'Victoire Napoli',en:'Napoli to win'},pr:66.3},
+  {m:'Juventus – Venezia',d:'Dim. 22 nov · 11:30 GMT',p:{fr:'Victoire Juventus',en:'Juventus to win'},pr:70.8},
   {m:'Arsenal – Dortmund',d:'Mar. 24 nov · 20:00 GMT',p:{fr:'Victoire Arsenal',en:'Arsenal to win'},pr:69}]},
  {niv:'risque',lien:'',legs:[
-  {m:'Mönchengladbach – Dortmund',d:'Sam. 21 nov · 14:30 GMT',p:{fr:'Victoire Dortmund',en:'Dortmund to win'},pr:59},
-  {m:'Union Berlin – Leipzig',d:'Sam. 21 nov · 14:30 GMT',p:{fr:'Victoire Leipzig',en:'Leipzig to win'},pr:61},
-  {m:'Newcastle – Arsenal',d:'Sam. 21 nov · 17:30 GMT',p:{fr:'Victoire Arsenal',en:'Arsenal to win'},pr:61},
-  {m:'Schalke 04 – Stuttgart',d:'Sam. 21 nov · 17:30 GMT',p:{fr:'Victoire Stuttgart',en:'Stuttgart to win'},pr:52},
-  {m:'Atalanta – Inter',d:'Dim. 22 nov · 19:45 GMT',p:{fr:'Victoire Inter',en:'Inter to win'},pr:60}]}
+  {m:'Mönchengladbach – Dortmund',d:'Sam. 21 nov · 14:30 GMT',p:{fr:'Victoire Dortmund',en:'Dortmund to win'},pr:59.1},
+  {m:'Union Berlin – Leipzig',d:'Sam. 21 nov · 14:30 GMT',p:{fr:'Victoire Leipzig',en:'Leipzig to win'},pr:61.7},
+  {m:'Newcastle – Arsenal',d:'Sam. 21 nov · 17:30 GMT',p:{fr:'Victoire Arsenal',en:'Arsenal to win'},pr:60.8},
+  {m:'Schalke 04 – Stuttgart',d:'Sam. 21 nov · 17:30 GMT',p:{fr:'Victoire Stuttgart',en:'Stuttgart to win'},pr:52.5},
+  {m:'Atalanta – Inter',d:'Dim. 22 nov · 19:45 GMT',p:{fr:'Victoire Inter',en:'Inter to win'},pr:59.7}]}
 ];
 
 const INFOS=[{fr:'Digital 360 : une question ? Écris-nous sur WhatsApp +226 78097713',en:'Digital 360: any question? Message us on WhatsApp +226 78097713'}];
@@ -392,12 +393,12 @@ const EN={
 "Championnats":"Leagues","Jour":"Day","Tous":"All","Bientôt":"Soon","Liste":"List","Défiler":"Scroll",
 "Glisse vers la droite pour voir tous les championnats →":"Swipe right to see all leagues →",
 "Ligue des champions":"Champions League",
-"Les probabilités SportRadar viennent d’un fournisseur de données sportives et celles de l’Europa League d’un site de pronostics, pas de bookmakers. Outil d’aide à la décision. Les paris comportent des risques. Réservé aux adultes.":"SportRadar probabilities come from a sports data provider, and those for the Europa League from a prediction site, not from bookmakers. Decision-support tool. Betting involves risks. Adults only.",
+"Outil d’aide à la décision. Les paris comportent des risques. Réservé aux adultes.":"Decision-support tool. Betting involves risks. Adults only.",
 "Développé par":"Developed by",
 "Domicile":"Home","Nul":"Draw","Extérieur":"Away","Match nul":"Draw","Pronostic :":"Prediction:",
 "Plus de 2,5 buts":"Over 2.5 goals","Les deux marquent":"Both teams score","Score probable":"Likely score",
-"Comparaison des bookmakers":"Bookmaker comparison","Meilleure cote":"Best odds","Cote juste (mon avis)":"Fair odds (my view)",
-"OddsPortal (ancienne)":"OddsPortal (old)","SportyTrader (meilleures cotes)":"SportyTrader (best odds)","Séville":"Seville",
+"Cotes justes estimées":"Estimated fair odds","Meilleure cote":"Best odds","Cote juste (mon avis)":"Fair odds (my view)",
+"Séville":"Seville",
 "Aucun match pour cette sélection. Choisis un autre championnat ou un autre jour.":"No match for this selection. Pick another league or another day.",
 "Très petit échantillon : à ne pas prendre comme une preuve de fiabilité.":"Very small sample: not proof of reliability.",
 "Petit échantillon : à ne pas prendre comme une preuve de fiabilité.":"Small sample: not proof of reliability.",
@@ -450,13 +451,10 @@ const EN={
 "Les cotes sont presque égales : match très ouvert, sans vrai favori.":"The odds are almost equal: a very open match with no clear favourite.",
 "Brighton a pris 13 points sur 18 et attaque beaucoup à domicile. Palace sort d’une victoire 3-1 contre Nottingham Forest : il peut piéger Brighton.":"Brighton took 13 points out of 18 and attack a lot at home. Palace come off a 3-1 win against Nottingham Forest: they can trap Brighton.",
 "Une seule cote trouvée (Leeds à 2,51). United est irrégulier loin de chez lui, mais ses attaquants peuvent décider seuls.":"Only one price found (Leeds at 2.51). United are inconsistent away from home, but their attackers can decide a game on their own.",
-"Arsenal a gagné 4 de ses 5 derniers matchs, Forest en a gagné 1. Bet9ja propose « les deux équipes ne marquent pas » à 1,91, ce qui colle à mon avis (53 % pour ce pari).":"Arsenal won 4 of their last 5 matches, Forest won 1. Bet9ja offers “both teams not to score” at 1.91, which fits my view (53% for this bet).",
 "Les deux sites donnent Tottenham à environ 1,50. Coventry a pourtant battu Forest 1-0 en septembre : la cote est basse, donc le gain aussi.":"Both sites give Tottenham at around 1.50. Coventry did beat Forest 1-0 in September: the odds are low, so the gain is too.",
-"Trois avis différents : SportRadar donne 77 % à Madrid, un modèle de buts 64 % et la moyenne des cotes 51 %. J’ai retenu 68 %. Madrid n’a pas perdu à domicile contre Séville sur les 9 derniers matchs de championnat, et Mbappé a déjà 7 buts.":"Three different views: SportRadar gives Madrid 77%, a goals model 64% and the average odds 51%. I kept 68%. Madrid have not lost at home to Seville in the last 9 league matches, and Mbappé already has 7 goals.",
 "Match dans 5 jours et cotes anciennes : reviens vérifier avant le week-end.":"Match in 5 days and old odds: check again before the weekend.",
 "Derby londonien dans 6 jours et cotes anciennes : à revérifier.":"London derby in 6 days and old odds: to be re-checked.",
-"Probabilités reprises de SportRadar. Les buts et les scores sont calculés à partir d’elles.":"Probabilities taken from SportRadar. Goals and scores are calculated from them.",
-"Probabilités reprises du site de pronostics Adalbet. Les buts et les scores sont calculés à partir d’elles.":"Probabilities taken from the prediction site Adalbet. Goals and scores are calculated from them.",
+"Probabilités estimées. Les buts et les scores sont calculés à partir d’elles.":"Estimated probabilities. Goals and scores are calculated from them.",
 "Seule la cote de la victoire à domicile a été trouvée. Mes probabilités en sont déduites avec le total de buts attendu : confiance faible.":"Only the home-win price was found. My probabilities are derived from it with the expected total goals: low confidence."
 };
 const RX=[
@@ -470,8 +468,8 @@ const RX=[
 [/^Essai gratuit : (\d+) jours? restants?$/,(m,n)=>'Free trial: '+pl(+n,'day')+' left'],
 [/^Mes pronostics terminés : (\d+) sur (\d+) corrects$/,'My finished predictions: $1 out of $2 correct'],
 [/^En vert : la meilleure cote trouvée\. Si elle dépasse la cote juste, elle est intéressante\./,'Green: the best odds found. If they exceed the fair odds, they are worth a look.'],
-[/^Pas de cotes de bookmakers trouvées pour ce match\. Probabilités (\w+) : /,'No bookmaker odds found for this match. $1 probabilities: '],
-[/ Probabilités (\w+) : /,' $1 probabilities: '],
+[/^Probabilités estimées : /,'Estimated probabilities: '],
+[/ Probabilités estimées : /,' Estimated probabilities: '],
 [/\. Ma cote juste : /,'. My fair odds: '],
 [/Il reste (\d+) jours?\. Tous les matchs sont débloqués\./,(m,n)=>pl(+n,'day')+' left. All matches are unlocked.'],
 [/Il te reste (\d+) jours? d’essai gratuit\./,(m,n)=>'You have '+pl(+n,'day')+' of free trial left.'],
@@ -566,7 +564,7 @@ function couponsUI(){
   const rows=c.legs.map(l=>'<li><span class="cpm">'+esc(l.m)+'</span><span class="cpp">'+esc(L(l.p.fr,l.p.en))+' · '+esc(l.d)+'</span><b>'+fmt(100/l.pr)+'</b></li>').join('');
   return '<div class="cpc" style="--cc:'+n.c+'"><div class="cph"><span class="cpb">'+L(n.fr,n.en)+'</span><span class="cpo">@ '+fmt(1/pt)+'</span></div><ul class="cpl">'+rows+'</ul><div class="cpf">'+L('Probabilité de réussite estimée : ','Estimated chance of success: ')+Math.round(pt*100)+(LANG==='en'?'%':' %')+'</div>'+(c.lien?'<a class="cpg" href="'+esc(c.lien)+'" target="_blank" rel="noopener">'+L('Jouer sur 1xBet','Play on 1xBet')+' →</a>':'')+'</div>';
  }).join('');
- el.innerHTML='<div class="cpt">'+L('Coupons 1xBet','1xBet slips')+'</div><div class="cps">'+L('Matchs réels, du plus sûr au plus risqué : plus la cote est haute, plus le risque est élevé.','Real matches, from safest to riskiest: the higher the odds, the higher the risk.')+'</div><div class="cpr">'+cards+'</div><div class="cpd">'+L('Cotes justes estimées par Pronostik 360 à partir des probabilités SportRadar, sans marge : les cotes réelles de 1xBet sont plus basses. Vérifie-les sur le site avant de jouer. 18+ · Jeu responsable · Aucun gain garanti.','Fair odds estimated by Pronostik 360 from SportRadar probabilities, without margin: the real 1xBet odds are lower. Check them on the site before playing. 18+ · Play responsibly · No winnings guaranteed.')+'</div>';
+ el.innerHTML='<div class="cpt">'+L('Coupons 1xBet','1xBet slips')+'</div><div class="cps">'+L('Matchs réels, du plus sûr au plus risqué : plus la cote est haute, plus le risque est élevé.','Real matches, from safest to riskiest: the higher the odds, the higher the risk.')+'</div><div class="cpr">'+cards+'</div><div class="cpd">'+L('Cotes justes calculées par Pronostik 360 à partir des probabilités estimées, sans marge : les cotes réelles de 1xBet sont plus basses. Vérifie-les sur le site avant de jouer. 18+ · Jeu responsable · Aucun gain garanti.','Fair odds calculated by Pronostik 360 from estimated probabilities, without margin: the real 1xBet odds are lower. Check them on the site before playing. 18+ · Play responsibly · No winnings guaranteed.')+'</div>';
 }
 let obT=null;
 const ob=new MutationObserver(()=>{clearTimeout(obT);obT=setTimeout(passAll,20)});

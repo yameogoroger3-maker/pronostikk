@@ -171,6 +171,22 @@ body.has-joueur .ht{display:block;position:absolute;left:16px;bottom:16px;max-wi
 .cpf{margin-top:6px;font-size:11.5px;color:var(--mu)}
 .cpg{display:inline-block;margin-top:6px;font-weight:700;color:var(--a)}
 .cpd{color:#d6e4ff;font-size:11.5px;margin:2px 12px 0 0}
+
+.ideas{margin:8px 0 2px}
+.idt{font-weight:700;font-size:12.5px;color:var(--mu);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.idr{display:grid;grid-template-columns:auto 1fr;gap:2px 8px;align-items:center;border-left:4px solid var(--c);background:var(--in);border-radius:8px;padding:6px 8px;margin-bottom:5px;font-size:13.5px}
+.idl{font-weight:700;color:var(--c);white-space:nowrap}
+.idm{font-weight:600}
+.idr b{grid-column:1/3;font-size:13px;color:var(--mu)}
+.gt{margin:10px 0 4px;font-weight:700;font-size:12.5px;color:var(--mu);text-transform:uppercase;letter-spacing:.04em}
+.bt{display:grid;grid-template-columns:1fr auto auto;gap:8px;padding:5px 0;border-top:1px solid var(--ln);font-size:13.5px;align-items:center}
+.bt .bp{color:var(--mu)}
+.bt b{min-width:58px;text-align:right}
+.bt.hi b{color:#d64545}
+#lgs{padding-top:14px;padding-left:8px;padding-right:8px;margin-top:-8px}
+.tile[aria-pressed="true"]{position:relative;border-color:#ffd23f;background:#fff7d1;color:#14213d;box-shadow:0 0 0 3px #ffd23f,0 0 18px rgba(255,210,63,.75)}
+.tile[aria-pressed="true"] small{color:#5d6b82}
+.tile[aria-pressed="true"]:after{content:"✓";position:absolute;top:-9px;right:-9px;width:26px;height:26px;border-radius:50%;background:#ffd23f;color:#3a2a00;font-weight:800;font-size:16px;line-height:26px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.4)}
 </style></head><body class="has-stade"><div class="bgfx" aria-hidden="true"><svg class="pl" viewBox="0 0 800 1200" preserveAspectRatio="xMidYMid slice"><rect x="40" y="40" width="720" height="1120" rx="6" pathLength="1"/><line x1="40" y1="600" x2="760" y2="600" pathLength="1"/><circle cx="400" cy="600" r="110" pathLength="1"/><rect x="220" y="40" width="360" height="170" pathLength="1"/><rect x="220" y="990" width="360" height="170" pathLength="1"/><rect x="320" y="40" width="160" height="60" pathLength="1"/><rect x="320" y="1100" width="160" height="60" pathLength="1"/></svg><i class="ball" style="left:5%;--s:46px;animation-duration:24s;animation-delay:-4s"></i><i class="ball" style="left:22%;--s:30px;animation-duration:19s;animation-delay:-12s"></i><i class="ball" style="left:41%;--s:56px;animation-duration:28s;animation-delay:-18s"></i><i class="ball" style="left:63%;--s:34px;animation-duration:21s;animation-delay:-7s"></i><i class="ball" style="left:80%;--s:50px;animation-duration:26s;animation-delay:-15s"></i><i class="ball" style="left:93%;--s:28px;animation-duration:18s;animation-delay:-1s"></i></div><main>
 <section id="auth" hidden></section><div id="app" hidden><div class="top band" id="top"></div>
 <div class="news band" id="news"></div>
@@ -195,7 +211,7 @@ const PL='Premier League',LL='La Liga',SA='Serie A',BL='Bundesliga',L1='Ligue 1'
 const d1='Ven. 20 nov',d2='Sam. 21 nov',d3='Dim. 22 nov',d4='Lun. 23 nov',d5='Mar. 24 nov',d6='Mer. 25 nov',d7='Ven. 27 nov';
 function gr(l,k){const P=[Math.exp(-l)],Q=[Math.exp(-k)];for(let i=1;i<9;i++){P.push(P[i-1]*l/i);Q.push(Q[i-1]*k/i)}let H=0,D=0,A=0,O=0,B=0;const S=[];for(let i=0;i<9;i++)for(let j=0;j<9;j++){const p=P[i]*Q[j];if(i>j)H+=p;else if(i===j)D+=p;else A+=p;if(i+j>2)O+=p;if(i&&j)B+=p;S.push([i+'-'+j,p])}const t=H+D+A;S.sort((x,y)=>y[1]-x[1]);return{p:[H/t,D/t,A/t],O:O/t,B:B/t,S:S}}
 function fit(p){let b=[1.3,1.1,9],st=.1,l0=.3,l1=3.8,k0=.2,k1=3.2;for(let r=0;r<2;r++){for(let l=l0;l<=l1;l+=st)for(let k=k0;k<=k1;k+=st){const g=gr(l,k).p,e=Math.pow(g[0]-p[0]/100,2)+Math.pow(g[1]-p[1]/100,2)+Math.pow(g[2]-p[2]/100,2);if(e<b[2])b=[l,k,e]}l0=Math.max(.1,b[0]-.1);l1=b[0]+.1;k0=Math.max(.1,b[1]-.1);k1=b[1]+.1;st=.02}return b}
-const mk=r=>{const f=fit(r[5]),g=gr(f[0],f[1]),mx=Math.max(...r[5]);return{lg:r[0],day:r[1],t:r[2],h:r[3],a:r[4],o:[],pr:r[5],p:r[5],ou:Math.round(g.O*100),bt:Math.round(g.B*100),sc:g.S[0][0]+' ou '+g.S[1][0],cf:mx>=70?2:mx>=50?1:0,n:'Probabilités estimées. Les buts et les scores sont calculés à partir d’elles.'}};
+const mk=r=>{const f=fit(r[5]),g=gr(f[0],f[1]),mx=Math.max(...r[5]);return{lg:r[0],day:r[1],t:r[2],h:r[3],a:r[4],o:[],lam:[f[0],f[1]],pr:r[5],p:r[5],ou:Math.round(g.O*100),bt:Math.round(g.B*100),sc:g.S[0][0]+' ou '+g.S[1][0],cf:mx>=70?2:mx>=50?1:0,n:'Probabilités estimées. Les buts et les scores sont calculés à partir d’elles.'}};
 const AU=[
 [PL,d2,'12:30','Manchester City','Fulham',[70,17,13]],[PL,d2,'15:00','Aston Villa','Sunderland',[54,25,21]],[PL,d2,'15:00','Bournemouth','Nottingham Forest',[47,27,26]],[PL,d2,'15:00','Chelsea','Leeds',[51,25,24]],[PL,d2,'15:00','Coventry','Crystal Palace',[41,26,33]],[PL,d2,'15:00','Tottenham','Ipswich',[62,21,17]],[PL,d2,'17:30','Newcastle','Arsenal',[17,22,61]],[PL,d3,'14:00','Hull','Brighton',[16,21,63]],[PL,d3,'16:30','Liverpool','Manchester United',[55,23,22]],[PL,d4,'20:00','Brentford','Everton',[46,26,28]],
 [LL,d1,'20:00','Athletic Bilbao','Espanyol',[66,20,14]],[LL,d2,'13:00','Alavés','Deportivo',[45,29,26]],[LL,d2,'15:15','Rayo Vallecano','Valencia',[49,27,24]],[LL,d2,'17:30','Séville','Real Betis',[31,26,43]],[LL,d2,'20:00','Real Madrid','Celta Vigo',[81,12,7]],[LL,d3,'13:00','Barcelona','Villarreal',[81,11,8]],[LL,d3,'15:15','Racing Santander','Real Sociedad',[31,24,45]],[LL,d3,'17:30','Osasuna','Málaga',[55,25,20]],[LL,d3,'20:00','Getafe','Atlético Madrid',[17,24,59]],[LL,d4,'20:00','Levante','Elche',[44,26,30]],
@@ -203,6 +219,7 @@ const AU=[
 [BL,d1,'19:30','Bayern Munich','Cologne',[89,7,4]],[BL,d2,'14:30','Leverkusen','Paderborn',[76,14,10]],[BL,d2,'14:30','Eintracht Frankfurt','Hoffenheim',[41,24,35]],[BL,d2,'14:30','Union Berlin','Leipzig',[18,20,62]],[BL,d2,'14:30','Mönchengladbach','Dortmund',[20,21,59]],[BL,d2,'14:30','Elversberg','Freiburg',[28,25,47]],[BL,d2,'17:30','Schalke 04','Stuttgart',[24,23,53]],[BL,d3,'14:30','Augsburg','Mainz',[35,25,40]],[BL,d3,'16:30','Werder Bremen','Hamburg',[57,22,21]],[BL,d7,'19:30','Werder Bremen','Mönchengladbach',[54,23,23]],
 [L1,d1,'19:45','Troyes','Le Havre',[46,27,27]],[L1,d2,'16:15','Nice','PSG',[15,18,67]],[L1,d2,'19:45','Lens','Toulouse',[52,24,24]],[L1,d2,'19:45','Lille','Lyon',[40,29,31]],[L1,d2,'19:45','Monaco','Auxerre',[68,18,14]],[L1,d2,'19:45','Strasbourg','Brest',[43,26,31]],[L1,d3,'14:00','Paris FC','Angers',[72,17,11]],[L1,d3,'16:15','Lorient','Rennes',[34,27,39]],[L1,d3,'19:45','Marseille','Le Mans',[68,18,14]],[L1,d7,'19:45','Brest','Paris FC',[31,27,42]],
 [UC,d5,'17:45','Bodø/Glimt','LASK Linz',[63,19,18]],[UC,d5,'17:45','Galatasaray','Aston Villa',[37,24,39]],[UC,d5,'20:00','Arsenal','Dortmund',[69,19,12]],[UC,d5,'20:00','Como','AEK Athens',[73,16,11]],[UC,d5,'20:00','Feyenoord','Porto',[34,26,40]],[UC,d5,'20:00','Manchester City','Napoli',[78,13,9]],[UC,d5,'20:00','Leipzig','Lens',[67,18,15]],[UC,d5,'20:00','Real Madrid','PSV',[81,11,8]],[UC,d5,'20:00','Slovan Bratislava','Real Betis',[10,15,75]],[UC,d6,'17:45','Sabah','Barcelona',[4,7,89]]];
+window.GR=gr;
 AU.forEach(r=>M.push(mk(r)));
 const DN={'Ven. 20 nov':[10,20],'Sam. 21 nov':[10,21],'Dim. 22 nov':[10,22],'Lun. 23 nov':[10,23],'Mar. 24 nov':[10,24],'Mer. 25 nov':[10,25],'Ven. 27 nov':[10,27]};
 M.sort((x,y)=>DN[x.day][1]-DN[y.day][1]||x.t.localeCompare(y.t));
@@ -229,7 +246,7 @@ function card(m){
  +'<div class="lg"><span>Domicile</span><span>Nul</span><span>Extérieur</span></div>'
  +'<div class="pick">Pronostic : <b>'+esc(pickTxt)+'</b><span class="tag">Confiance '+CF[m.cf].toLowerCase()+'</span></div>'
  +'<div class="ev"><div>Plus de 2,5 buts<b>'+m.ou+'%</b></div><div>Les deux marquent<b>'+m.bt+'%</b></div><div>Double chance<b>'+dc+' · '+(100-p[low])+'%</b></div><div>Score probable<b>'+m.sc+'</b></div></div>'
- +'<details><summary>Cotes justes estimées</summary>'+tb+'</details><p class="note">'+esc(m.n)+'</p></article>';}
+ +ideasHTML(m)+'<details><summary>'+L('Tous les paris','All bets')+' ('+mkts(m).length+')</summary>'+allBets(m)+'</details><p class="note">'+esc(m.n)+'</p></article>';}
 function draw(){
  const rl=$('lgs').scrollLeft,n=l=>M.filter(m=>m.lg===l).length;
  {const c0=[...sel][0];if(M.length&&(!c0||!n(c0))){sel.clear();sel.add(M[0].lg)}}
@@ -251,23 +268,7 @@ function draw(){
 const PAY={om:'https://lrxzkgeq.mychariow.shop/prd_41d5t02v/checkout',card:'https://lrxzkgeq.mychariow.shop/prd_41d5t02v/checkout'},API='https://paiement.yameogo-roger3.workers.dev',WA='22678097713',CODES=['ESSAI30'],FREE=2,DAYS=30,TRIAL=14,subOpen={v:false},mem={};
 const PRIX=600;
 const PROMO={actif:true,code:'PRONOSTIK360',lien:''};
-const COUPONS=[
- {niv:'sur',lien:'',legs:[
-  {m:'Bayern Munich – Cologne',d:'Ven. 20 nov · 19:30 GMT',p:{fr:'Victoire Bayern Munich',en:'Bayern Munich to win'},pr:89.4},
-  {m:'Manchester City – Napoli',d:'Mar. 24 nov · 20:00 GMT',p:{fr:'Victoire Manchester City',en:'Manchester City to win'},pr:77.6},
-  {m:'Sabah – Barcelona',d:'Mer. 25 nov · 17:45 GMT',p:{fr:'Victoire Barcelona',en:'Barcelona to win'},pr:89}]},
- {niv:'moyen',lien:'',legs:[
-  {m:'Leverkusen – Paderborn',d:'Sam. 21 nov · 14:30 GMT',p:{fr:'Victoire Leverkusen',en:'Leverkusen to win'},pr:76.4},
-  {m:'Napoli – Torino',d:'Sam. 21 nov · 19:45 GMT',p:{fr:'Victoire Napoli',en:'Napoli to win'},pr:66.3},
-  {m:'Juventus – Venezia',d:'Dim. 22 nov · 11:30 GMT',p:{fr:'Victoire Juventus',en:'Juventus to win'},pr:70.8},
-  {m:'Arsenal – Dortmund',d:'Mar. 24 nov · 20:00 GMT',p:{fr:'Victoire Arsenal',en:'Arsenal to win'},pr:69}]},
- {niv:'risque',lien:'',legs:[
-  {m:'Mönchengladbach – Dortmund',d:'Sam. 21 nov · 14:30 GMT',p:{fr:'Victoire Dortmund',en:'Dortmund to win'},pr:59.1},
-  {m:'Union Berlin – Leipzig',d:'Sam. 21 nov · 14:30 GMT',p:{fr:'Victoire Leipzig',en:'Leipzig to win'},pr:61.7},
-  {m:'Newcastle – Arsenal',d:'Sam. 21 nov · 17:30 GMT',p:{fr:'Victoire Arsenal',en:'Arsenal to win'},pr:60.8},
-  {m:'Schalke 04 – Stuttgart',d:'Sam. 21 nov · 17:30 GMT',p:{fr:'Victoire Stuttgart',en:'Stuttgart to win'},pr:52.5},
-  {m:'Atalanta – Inter',d:'Dim. 22 nov · 19:45 GMT',p:{fr:'Victoire Inter',en:'Inter to win'},pr:59.7}]}
-];
+const COUPONS=[]; // vide : les coupons sont composés automatiquement. Pour imposer tes propres coupons, remplis cette liste (voir CLAUDE.md).
 
 const INFOS=[{fr:'Digital 360 : une question ? Écris-nous sur WhatsApp +226 78097713',en:'Digital 360: any question? Message us on WhatsApp +226 78097713'}];
 const LG=[['Ligue des champions','LC','#1d3a8a'],['Europa League','EL','#e8590c'],['Premier League','PL','#5b2a86'],['La Liga','LL','#c2410c'],['Serie A','SA','#1d4ed8'],['Bundesliga','BL','#b91c1c'],['Ligue 1','L1','#0f766e']],sel=new Set(),dj={v:'Tous'},vw={v:'v'};
@@ -516,7 +517,7 @@ function trRestore(){
 function toggleLang(){
  LANG=LANG==='fr'?'en':'fr';ls.s('p360l',LANG);document.documentElement.lang=LANG;
  if(LANG==='fr')trRestore();
- if(SES){topUI();newsUI();promoUI();couponsUI()}
+ if(SES){topUI();newsUI();promoUI();couponsUI();draw()}
  passAll();
 }
 function injectLang(){
@@ -555,16 +556,99 @@ function promoUI(){
  el.innerHTML='<div class="card promo"><div><b>🎁 '+L('Code promo 1xBet','1xBet promo code')+'</b><div class="pc">'+esc(PROMO.code)+'</div><div class="mu">'+L('Réservé aux 18+. Jeu responsable.','18+ only. Play responsibly.')+'</div>'+(PROMO.lien?'<a class="pbtn" href="'+esc(PROMO.lien)+'" target="_blank" rel="noopener">'+L('Ouvrir 1xBet','Open 1xBet')+'</a>':'')+'</div><button class="p" id="pcp" type="button">'+L('Copier','Copy')+'</button></div>';
  $('pcp').onclick=async()=>{const b=$('pcp');try{await navigator.clipboard.writeText(PROMO.code);b.textContent=L('Copié ✓','Copied ✓')}catch(e){b.textContent=L('Note le code','Note the code')}};
 }
+
+/* ===== Paris : buts, combinés, scores exacts, mi-temps, corners, cartons ===== */
+const CB={'Premier League':9.44,'La Liga':9.73,'Serie A':9.53,'Bundesliga':10.65,'Ligue 1':9.2,'Ligue des champions':9.7};
+const YB={'Premier League':3.9,'La Liga':4.4,'Serie A':3.7,'Bundesliga':3.9,'Ligue 1':3.7,'Ligue des champions':3.9};
+const GT={res:['Résultat','Result'],dc:['Double chance','Double chance'],buts:['Nombre de buts','Total goals'],btts:['Les deux équipes marquent','Both teams to score'],team:['Buts par équipe','Team goals'],hc:['Écart de buts','Winning margin'],wn:['Victoire sans encaisser','Win without conceding'],combo:['Combinés','Combos'],score:['Score exact','Correct score'],htft:['Mi-temps / fin de match','Half-time / full-time'],corners:['Corners (estimation)','Corners (estimate)'],cards:['Cartons (estimation)','Cards (estimate)']};
+const fc=x=>String(x).replace('.',',');
+const pc=p=>Math.round(p*100)+(LANG==='en'?'%':' %');
+const fo=p=>{const s=(1/p).toFixed(2);return LANG==='en'?s:s.replace('.',',')};
+function nbTail(mu,v,k){const r=mu*mu/(v-mu),p=r/(r+mu);let pm=Math.pow(p,r),c=0;for(let i=0;i<k;i++){c+=pm;pm=pm*(i+r)/(i+1)*(1-p)}return Math.max(0,Math.min(1,1-c))}
+function mkts(m){
+ if(m._mk)return m._mk;
+ const g=GR(m.lam[0],m.lam[1]),S=g.S.map(s=>{const a=s[0].split('-');return[+a[0],+a[1],s[1]]}),tot=S.reduce((a,x)=>a+x[2],0);
+ const sum=f=>S.reduce((a,x)=>a+(f(x[0],x[1])?x[2]:0),0)/tot,H=m.h,A=m.a,out=[];
+ const add=(id,gp,fr,en,p,est)=>{if(p>0.004&&p<0.996)out.push({id:id,gp:gp,fr:fr,en:en,p:p,est:!!est,m:m})};
+ const pH=sum((i,j)=>i>j),pD=sum((i,j)=>i===j),pA=sum((i,j)=>i<j);
+ add('1','res','Victoire '+H,H+' to win',pH);add('X','res','Match nul','Draw',pD);add('2','res','Victoire '+A,A+' to win',pA);
+ add('1X','dc',H+' ou nul',H+' or draw',pH+pD);add('X2','dc',A+' ou nul',A+' or draw',pA+pD);add('12','dc',H+' ou '+A+' (sans nul)',H+' or '+A+' (no draw)',pH+pA);
+ [0.5,1.5,2.5,3.5,4.5].forEach(x=>{const o=sum((i,j)=>i+j>x);add('o'+x,'buts','Plus de '+fc(x)+' buts','Over '+x+' goals',o);if(x>=1.5&&x<=3.5)add('u'+x,'buts','Moins de '+fc(x)+' buts','Under '+x+' goals',1-o)});
+ const by=sum((i,j)=>i>0&&j>0);add('by','btts','Les deux équipes marquent','Both teams score',by);add('bn','btts','Au moins une équipe ne marque pas','At least one team does not score',1-by);
+ add('h05','team',H+' marque au moins 1 but',H+' scores at least 1',sum((i,j)=>i>0));add('a05','team',A+' marque au moins 1 but',A+' scores at least 1',sum((i,j)=>j>0));
+ add('h15','team',H+' marque 2 buts ou plus',H+' scores 2 or more',sum((i,j)=>i>1));add('a15','team',A+' marque 2 buts ou plus',A+' scores 2 or more',sum((i,j)=>j>1));
+ add('hh','hc',H+' gagne par 2 buts d’écart ou plus',H+' wins by 2 or more goals',sum((i,j)=>i-j>=2));add('ah','hc',A+' gagne par 2 buts d’écart ou plus',A+' wins by 2 or more goals',sum((i,j)=>j-i>=2));
+ add('hw','wn',H+' gagne sans encaisser',H+' wins to nil',sum((i,j)=>i>j&&j===0));add('aw','wn',A+' gagne sans encaisser',A+' wins to nil',sum((i,j)=>j>i&&i===0));
+ add('h_o15','combo',H+' gagne et plus de 1,5 buts',H+' wins and over 1.5 goals',sum((i,j)=>i>j&&i+j>=2));add('h_o25','combo',H+' gagne et plus de 2,5 buts',H+' wins and over 2.5 goals',sum((i,j)=>i>j&&i+j>=3));
+ add('a_o15','combo',A+' gagne et plus de 1,5 buts',A+' wins and over 1.5 goals',sum((i,j)=>j>i&&i+j>=2));add('a_o25','combo',A+' gagne et plus de 2,5 buts',A+' wins and over 2.5 goals',sum((i,j)=>j>i&&i+j>=3));
+ add('h_by','combo',H+' gagne et les deux marquent',H+' wins and both score',sum((i,j)=>i>j&&j>0));add('a_by','combo',A+' gagne et les deux marquent',A+' wins and both score',sum((i,j)=>j>i&&i>0));
+ add('x_u25','combo','Match nul et moins de 2,5 buts','Draw and under 2.5 goals',sum((i,j)=>i===j&&i+j<=2));
+ S.slice(0,3).forEach((s,k)=>add('sc'+k,'score','Score exact '+s[0]+'-'+s[1],'Correct score '+s[0]+'-'+s[1],s[2]/tot));
+ const ph=l=>{const a=[Math.exp(-l)];for(let i=1;i<7;i++)a.push(a[i-1]*l/i);return a};
+ const h1=ph(m.lam[0]*.45),a1=ph(m.lam[1]*.45),h2=ph(m.lam[0]*.55),a2=ph(m.lam[1]*.55),R=(x,y)=>x>y?0:x===y?1:2,T=[[0,0,0],[0,0,0],[0,0,0]];let tt=0;
+ for(let i1=0;i1<7;i1++)for(let j1=0;j1<7;j1++){const pf=h1[i1]*a1[j1];if(pf<1e-8)continue;for(let i2=0;i2<7;i2++)for(let j2=0;j2<7;j2++){const p=pf*h2[i2]*a2[j2];T[R(i1,j1)][R(i1+i2,j1+j2)]+=p;tt+=p}}
+ const nm=[H,'nul',A],ne=[H,'draw',A],ht=[];
+ for(let a=0;a<3;a++)for(let b=0;b<3;b++)ht.push([a,b,T[a][b]/tt]);
+ ht.sort((x,y)=>y[2]-x[2]).slice(0,3).forEach((x,k)=>add('ht'+k,'htft','Mi-temps '+nm[x[0]]+' / Fin '+nm[x[1]],'Half-time '+ne[x[0]]+' / Full-time '+ne[x[1]],x[2],true));
+ const dif=Math.abs(pH-pA),mc=(CB[m.lg]||9.6)*(.95+.25*dif),mq=(YB[m.lg]||3.9)*(1.08-.14*dif);
+ [8.5,9.5,10.5,11.5].forEach(x=>add('co'+x,'corners','Plus de '+fc(x)+' corners','Over '+x+' corners',nbTail(mc,mc*1.3,Math.ceil(x)),true));
+ [9.5,10.5].forEach(x=>add('cu'+x,'corners','Moins de '+fc(x)+' corners','Under '+x+' corners',1-nbTail(mc,mc*1.3,Math.ceil(x)),true));
+ [2.5,3.5,4.5,5.5].forEach(x=>add('ca'+x,'cards','Plus de '+fc(x)+' cartons','Over '+x+' cards',nbTail(mq,mq*1.3,Math.ceil(x)),true));
+ [3.5,4.5].forEach(x=>add('cb'+x,'cards','Moins de '+fc(x)+' cartons','Under '+x+' cards',1-nbTail(mq,mq*1.3,Math.ceil(x)),true));
+ m._mk=out;return out;
+}
+function ideas(m){
+ const A=mkts(m).filter(x=>x.p>0.02&&x.p<0.97),near=(a,t)=>a.length?a.reduce((x,y)=>Math.abs(y.p-t)<Math.abs(x.p-t)?y:x):null;
+ return[
+  {c:'#1fa76b',fr:'🟢 Sûr',en:'🟢 Safe',x:near(A.filter(x=>!x.est&&x.p>=.74),.86)},
+  {c:'#d99a00',fr:'🟡 Équilibré',en:'🟡 Balanced',x:near(A.filter(x=>!x.est&&x.p>=.5&&x.p<=.72),.6)},
+  {c:'#d64545',fr:'🔴 Cote élevée',en:'🔴 High odds',x:near(A.filter(x=>x.p>=.06&&x.p<=.2),.12)}
+ ].filter(i=>i.x);
+}
+function ideasHTML(m){
+ return '<div class="ideas"><div class="idt">'+L('Idées de paris','Betting ideas')+'</div>'+ideas(m).map(i=>'<div class="idr" style="--c:'+i.c+'"><span class="idl">'+L(i.fr,i.en)+'</span><span class="idm">'+esc(L(i.x.fr,i.x.en))+(i.x.est?' ≈':'')+'</span><b>'+pc(i.x.p)+' · @'+fo(i.x.p)+'</b></div>').join('')+'</div>';
+}
+function allBets(m){
+ const g={},ord=[];mkts(m).forEach(x=>{if(!g[x.gp]){g[x.gp]=[];ord.push(x.gp)}g[x.gp].push(x)});
+ return ord.map(k=>'<div class="gt">'+L(GT[k][0],GT[k][1])+'</div>'+g[k].map(x=>'<div class="bt'+(1/x.p>=5?' hi':'')+'"><span>'+esc(L(x.fr,x.en))+(x.est?' ≈':'')+'</span><span class="bp">'+pc(x.p)+'</span><b>@'+fo(x.p)+'</b></div>').join('')).join('')+'<p class="mu">'+L('Cotes justes sans marge : les cotes réelles des bookmakers sont plus basses. ≈ : estimation moins précise (moyennes de la saison).','Fair odds without margin: real bookmaker odds are lower. ≈: less accurate estimate (season averages).')+'</p>';
+}
+function buildCoupons(){
+ const pool=[];M.forEach(m=>mkts(m).forEach(x=>pool.push(x)));
+ const LV=[
+  {niv:'sur',n:3,lo:.8,hi:.95,t:.88,est:0,gp:['dc','buts','btts','res','wn','team']},
+  {niv:'moyen',n:4,lo:.62,hi:.78,t:.70,est:1,must:['corners','cards'],gp:['res','dc','buts','btts','team','combo','hc']},
+  {niv:'risque',n:5,lo:.48,hi:.62,t:.55,est:2,must:['corners','cards'],gp:['res','dc','buts','btts','team','combo','hc','corners','cards','wn']},
+  {niv:'eleve',n:4,lo:.3,hi:.45,t:.38,est:2,must:['corners','cards'],gp:['res','buts','btts','team','combo','hc','corners','cards','wn']},
+  {niv:'mega',n:3,lo:.08,hi:.22,t:.14,est:3,gp:['score','htft','combo','hc','wn','res']}];
+ const usedM=new Set(),out=[];
+ LV.forEach(lv=>{
+  const legs=[],used=new Set(),gc={},lgc={};let ne=0;
+  for(let s=0;s<lv.n;s++){
+   let best=null,bc=9;
+   pool.forEach(x=>{
+    if(x.p<lv.lo||x.p>lv.hi||used.has(x.m)||(x.est&&ne>=lv.est))return;if(s===0&&lv.must){if(!lv.must.includes(x.gp))return}else if(!lv.gp.includes(x.gp))return;
+    const c=Math.abs(x.p-lv.t)+(gc[x.gp]||0)*.05+(lgc[x.m.lg]||0)*.02+(usedM.has(x.m)?.03:0)+(x.est?.02:0);
+    if(c<bc){bc=c;best=x}
+   });
+   if(!best)break;
+   used.add(best.m);gc[best.gp]=(gc[best.gp]||0)+1;lgc[best.m.lg]=(lgc[best.m.lg]||0)+1;if(best.est)ne++;
+   legs.push({m:best.m.h+' – '+best.m.a,d:best.m.day+' · '+best.m.t+' GMT',p:{fr:best.fr,en:best.en},pr:best.p*100,est:best.est});
+  }
+  legs.forEach(l=>{M.forEach(m=>{if(m.h+' – '+m.a===l.m)usedM.add(m)})});
+  if(legs.length)out.push({niv:lv.niv,legs:legs,lien:''});
+ });
+ return out;
+}
 function couponsUI(){
  const el=$('coupons');if(!el)return;
- const NV={sur:{c:'#1fa76b',fr:'🟢 SÛR',en:'🟢 SAFE'},moyen:{c:'#d99a00',fr:'🟡 ÉQUILIBRÉ',en:'🟡 BALANCED'},risque:{c:'#d64545',fr:'🔴 RISQUÉ',en:'🔴 RISKY'}};
+ const NV={sur:{c:'#1fa76b',fr:'🟢 SÛR',en:'🟢 SAFE'},moyen:{c:'#d99a00',fr:'🟡 ÉQUILIBRÉ',en:'🟡 BALANCED'},risque:{c:'#d64545',fr:'🔴 RISQUÉ',en:'🔴 RISKY'},eleve:{c:'#8e44ad',fr:'🟣 GROSSE COTE',en:'🟣 BIG ODDS'},mega:{c:'#e84393',fr:'🌟 MÉGA COTE',en:'🌟 MEGA ODDS'}};
  const fmt=x=>LANG==='en'?x.toFixed(2):x.toFixed(2).replace('.',',');
- const cards=COUPONS.map(c=>{
+ const cards=(COUPONS.length?COUPONS:buildCoupons()).map(c=>{
   const n=NV[c.niv]||NV.moyen,pt=c.legs.reduce((a,l)=>a*l.pr/100,1);
-  const rows=c.legs.map(l=>'<li><span class="cpm">'+esc(l.m)+'</span><span class="cpp">'+esc(L(l.p.fr,l.p.en))+' · '+esc(l.d)+'</span><b>'+fmt(100/l.pr)+'</b></li>').join('');
-  return '<div class="cpc" style="--cc:'+n.c+'"><div class="cph"><span class="cpb">'+L(n.fr,n.en)+'</span><span class="cpo">@ '+fmt(1/pt)+'</span></div><ul class="cpl">'+rows+'</ul><div class="cpf">'+L('Probabilité de réussite estimée : ','Estimated chance of success: ')+Math.round(pt*100)+(LANG==='en'?'%':' %')+'</div>'+(c.lien?'<a class="cpg" href="'+esc(c.lien)+'" target="_blank" rel="noopener">'+L('Jouer sur 1xBet','Play on 1xBet')+' →</a>':'')+'</div>';
+  const rows=c.legs.map(l=>'<li><span class="cpm">'+esc(l.m)+'</span><span class="cpp">'+esc(L(l.p.fr,l.p.en))+(l.est?' ≈':'')+' · '+esc(l.d)+'</span><b>'+fmt(100/l.pr)+'</b></li>').join('');
+  return '<div class="cpc" style="--cc:'+n.c+'"><div class="cph"><span class="cpb">'+L(n.fr,n.en)+'</span><span class="cpo">@ '+fmt(1/pt)+'</span></div><ul class="cpl">'+rows+'</ul><div class="cpf">'+L('Probabilité de réussite estimée : ','Estimated chance of success: ')+(()=>{const q=pt<.01?(pt*100).toFixed(1):String(Math.round(pt*100));return(LANG==='en'?q:q.replace('.',','))+(LANG==='en'?'%':' %')})()+'</div>'+(c.lien?'<a class="cpg" href="'+esc(c.lien)+'" target="_blank" rel="noopener">'+L('Jouer sur 1xBet','Play on 1xBet')+' →</a>':'')+'</div>';
  }).join('');
- el.innerHTML='<div class="cpt">'+L('Coupons 1xBet','1xBet slips')+'</div><div class="cps">'+L('Matchs réels, du plus sûr au plus risqué : plus la cote est haute, plus le risque est élevé.','Real matches, from safest to riskiest: the higher the odds, the higher the risk.')+'</div><div class="cpr">'+cards+'</div><div class="cpd">'+L('Cotes justes calculées par Pronostik 360 à partir des probabilités estimées, sans marge : les cotes réelles de 1xBet sont plus basses. Vérifie-les sur le site avant de jouer. 18+ · Jeu responsable · Aucun gain garanti.','Fair odds calculated by Pronostik 360 from estimated probabilities, without margin: the real 1xBet odds are lower. Check them on the site before playing. 18+ · Play responsibly · No winnings guaranteed.')+'</div>';
+ el.innerHTML='<div class="cpt">'+L('Coupons 1xBet','1xBet slips')+'</div><div class="cps">'+L('Matchs réels, du plus sûr au plus risqué : plus la cote est haute, plus le risque est élevé.','Real matches, from safest to riskiest: the higher the odds, the higher the risk.')+'</div><div class="cpr">'+cards+'</div><div class="cpd">'+L('Cotes justes calculées par Pronostik 360 à partir des probabilités estimées, sans marge : les cotes réelles de 1xBet sont plus basses. Vérifie-les sur le site avant de jouer. Corners et cartons (≈) : estimations d’après les moyennes de la saison, moins précises que les buts. 18+ · Jeu responsable · Aucun gain garanti.','Fair odds calculated by Pronostik 360 from estimated probabilities, without margin: the real 1xBet odds are lower. Check them on the site before playing. Corners and cards (≈): estimates based on season averages, less accurate than goals. 18+ · Play responsibly · No winnings guaranteed.')+'</div>';
 }
 let obT=null;
 const ob=new MutationObserver(()=>{clearTimeout(obT);obT=setTimeout(passAll,20)});
